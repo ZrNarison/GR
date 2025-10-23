@@ -358,6 +358,10 @@
             <Form>Form9</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Depense.pas">
+            <Form>Form10</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

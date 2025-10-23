@@ -81,7 +81,7 @@ implementation
 
 uses
   Membre, Fiv, user, Rfiv, uSplash, Social, Params,
-  Winapi.Windows; // pour Mutex sur Windows
+  Winapi.Windows, Depense; // pour Mutex sur Windows
 
 // -------------------------------------------------------------------
 procedure TForm1.Security;
@@ -743,9 +743,13 @@ begin
   Rectangle4.Fill.Color := TAlphaColorRec.Red;
   Rectangle5.Fill.Color := TAlphaColorRec.Darkviolet;
   Rectangle6.Fill.Color := TAlphaColorRec.Yellowgreen;
-  button2.Text:='👤 &MEMBRE';
-  button3.Text:='📅 &REUNION';
-  button4.Text:='💰 S&OCIAL';
+  button2.Text:='👤 &Membre';
+  button3.Text:='📅 &Réunion';
+  button4.Text:='💰 S&ocial';
+  button5.Text:='📥 Importer';
+  button6.Text:='📤 Exporter';
+  button7.Text:='⚙ Paramètres';
+  button1.Text:='🛡Utilisateur';
   Label4.Text:='REUNION';
   Label9.Text:='MEMBRE PUNIS';
   Label7.Text:='SOCIAL';

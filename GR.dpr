@@ -1,4 +1,4 @@
-program GR;
+﻿program GR;
 
 uses
   System.StartUpCopy,
@@ -18,7 +18,8 @@ uses
   uSplash in 'uSplash.pas' {FormSplash},
   Social in 'Social.pas' {Form7},
   Params in 'Params.pas' {Form8},
-  reup in 'reup.pas' {Form9};
+  reup in 'reup.pas' {Form9},
+  Depense in 'Depense.pas' {Form10};
 
 {$R *.res}
 var
@@ -44,6 +45,7 @@ begin
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TForm5, Form5);
   Application.CreateForm(TForm9, Form9);
+  Application.CreateForm(TForm10, Form10);
   FormSplash.UpdateProgress(30, 'Chargement Form2...');
   Application.CreateForm(TForm2, Form2);
 
