@@ -341,9 +341,9 @@ object Form7: TForm7
   end
   object Button4: TButton
     Anchors = [akTop, akRight]
-    Position.X = 853.000000000000000000
+    Position.X = 840.000000000000000000
     Position.Y = 9.000000000000000000
-    Size.Width = 36.000000000000000000
+    Size.Width = 85.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 13

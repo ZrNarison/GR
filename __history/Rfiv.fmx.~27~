@@ -50,20 +50,31 @@ object Form6: TForm6
       Text = 'Button2'
       TextSettings.FontColor = claRed
       TextSettings.Trimming = None
+      OnClick = Button2Click
     end
     object Button3: TButton
       StyledSettings = [Size, Style]
-      Position.X = 152.000000000000000000
-      Position.Y = 257.000000000000000000
-      Size.Width = 104.000000000000000000
+      Position.X = 48.000000000000000000
+      Position.Y = 260.000000000000000000
+      Size.Width = 73.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 4
       Text = 'Button3'
       TextSettings.Font.Family = 'Times New Roman'
-      TextSettings.FontColor = claTomato
+      TextSettings.FontColor = claGreen
       TextSettings.Trimming = None
       OnClick = Button3Click
+    end
+    object Button5: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 129.000000000000000000
+      Position.Y = 260.000000000000000000
+      TabOrder = 5
+      Text = 'Button5'
+      TextSettings.FontColor = claChocolate
+      TextSettings.Trimming = None
+      OnClick = Button5Click
     end
   end
   object StringGrid1: TStringGrid
@@ -76,15 +87,16 @@ object Form6: TForm6
     Size.Height = 250.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
+    OnCellClick = StringGrid1CellClick
     Viewport.Width = 372.000000000000000000
     Viewport.Height = 225.000000000000000000
   end
   object Button4: TButton
     Anchors = [akTop, akRight]
     StyledSettings = [Family, Size, Style]
-    Position.X = 602.000000000000000000
+    Position.X = 552.000000000000000000
     Position.Y = 6.000000000000000000
-    Size.Width = 34.000000000000000000
+    Size.Width = 84.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 4

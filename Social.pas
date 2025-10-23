@@ -806,9 +806,10 @@ var
 begin
   Caption := 'GESTION DE GROUPE (Social)';
   VerficationChamp;
-  button2.Text:='💾 Enregistrer';
+  Button2.Text := '➕ Ajouter';
+  Button1.Text:='📅 &Réunion';
   Button3.Text := '❌ Annuler';
-  Button4.Text := '🗑️ Supprimer';
+  Button4.Text := '🗑 Supprimer';
     GridPresence.OnDrawColumnCell := GridPresenceDrawColumnCell;
 //    Legende du tableu
     Rectangle1.Fill.Color := TAlphaColorRec.Red;

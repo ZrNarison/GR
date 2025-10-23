@@ -62,15 +62,17 @@ object Form6: TForm6
       TabOrder = 4
       Text = 'Button3'
       TextSettings.Font.Family = 'Times New Roman'
-      TextSettings.FontColor = claTomato
+      TextSettings.FontColor = claGreen
       TextSettings.Trimming = None
       OnClick = Button3Click
     end
     object Button5: TButton
+      StyledSettings = [Family, Size, Style]
       Position.X = 129.000000000000000000
       Position.Y = 260.000000000000000000
       TabOrder = 5
       Text = 'Button5'
+      TextSettings.FontColor = claChocolate
       TextSettings.Trimming = None
       OnClick = Button5Click
     end

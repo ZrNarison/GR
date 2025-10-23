@@ -51,6 +51,7 @@ type
     Rectangle3: TRectangle;
     Label14: TLabel;
     Rectangle4: TRectangle;
+    Button4: TButton;
     procedure FormCreate(Sender: TObject);
     procedure ComboEdit2Change(Sender: TObject);
     procedure GridPresenceDrawColumnCell(Sender: TObject; const Canvas: TCanvas;
@@ -62,6 +63,8 @@ type
     procedure ComboEdit1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure DateEdit1Change(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     { Déclarations privées }
     StatusArray: array of array of string; // tableau pour stocker le statut
@@ -70,6 +73,7 @@ type
     procedure VerficationChamp;
     procedure AjusterColonnes;
     procedure ChargerPresence;
+    procedure FiltrerReunionsParDate;
   public
     { Déclarations publiques }
   end;
@@ -82,6 +86,53 @@ implementation
 {$R *.fmx}
 
 uses base, Reunion, uSplash, System.UIConsts, Fiv, login, Membre, Rfiv, user;
+
+
+procedure TForm7.FiltrerReunionsParDate;
+var
+  Q: TFDQuery;
+  col: TColumn;
+  idx: Integer;
+begin
+  // Nettoyer les colonnes existantes (sauf N° et NOM)
+  while GridPresence.ColumnCount > 2 do
+    GridPresence.RemoveObject(GridPresence.Columns[2]);
+
+  // Charger les réunions à partir de la date sélectionnée
+  Q := TFDQuery.Create(nil);
+  try
+    Q.Connection := DataModule1.FDConnection1;
+    Q.SQL.Text :=
+      'SELECT date_reunion FROM t_reunion ' +
+      'WHERE date(date_reunion) >= date(:d) ' +
+      'ORDER BY date_reunion ASC';
+    Q.ParamByName('d').AsString := FormatDateTime('yyyy-mm-dd', DateEdit1.Date);
+    Q.Open;
+
+    idx := 2;
+    while not Q.Eof do
+    begin
+      col := TColumn.Create(GridPresence);
+      col.Header := FormatDateTime('dd/mm/yyyy', Q.FieldByName('date_reunion').AsDateTime);
+      col.Width := 120;
+      GridPresence.AddObject(col);
+      Inc(idx);
+      Q.Next;
+    end;
+
+  finally
+    Q.Free;
+  end;
+end;
+
+
+procedure TForm7.DateEdit1Change(Sender: TObject);
+
+begin
+    FiltrerReunionsParDate;
+  GridPresence.Repaint; // rafraîchir le rendu graphique
+end;
+
 
 procedure TForm7.DisableChamp;
 begin
@@ -305,7 +356,7 @@ begin
   try
     QCheck.Connection := DataModule1.FDConnection1;
     QCheck.SQL.Text := 'SELECT id FROM t_reunion WHERE date_reunion = :d';
-    QCheck.ParamByName('d').AsDate := StrToDate(ComboEdit2.Text);
+    QCheck.ParamByName('d').AsString := ComboEdit2.Text;
     QCheck.Open;
     if QCheck.Eof then
     begin
@@ -430,6 +481,111 @@ begin
 //        ShowMessage('Socal enregistrée avec succès.');
 
 end;
+
+
+procedure TForm7.Button4Click(Sender: TObject);
+var
+  QDel, QCheck: TFDQuery;
+  idMembre, idReunion: Integer;
+  nomPrenom, dateReunion: string;
+  ColIndex, RowIndex: Integer;
+begin
+  // Vérifier qu'une cellule est sélectionnée
+  ColIndex := GridPresence.Col;
+  RowIndex := GridPresence.Row;
+
+  if (RowIndex < 0) or (ColIndex < 0) then
+  begin
+    ShowMessage('Veuillez sélectionner une cellule ou une ligne à supprimer.');
+    Exit;
+  end;
+
+  // Empêcher suppression de l’en-tête
+  if RowIndex = 0 then
+  begin
+    ShowMessage('Impossible de supprimer une ligne d’en-tête.');
+    Exit;
+  end;
+
+  // On ne supprime que si ce n’est pas les deux premières colonnes (N°, NOM)
+  if ColIndex < 2 then
+  begin
+    ShowMessage('Veuillez sélectionner une colonne correspondant à une réunion.');
+    Exit;
+  end;
+
+  // Récupérer les informations du membre et de la réunion
+  nomPrenom := Trim(GridPresence.Cells[1, RowIndex]); // Nom + Prénom
+  dateReunion := GridPresence.Columns[ColIndex].Header;
+
+  // Nettoyer le texte du header si nécessaire (ex: "Réunion (2024-10-20)")
+  if Pos('(', dateReunion) > 0 then
+  begin
+    dateReunion := Copy(dateReunion, Pos('(', dateReunion) + 1, Length(dateReunion));
+    dateReunion := StringReplace(dateReunion, ')', '', []);
+  end;
+
+  QCheck := TFDQuery.Create(nil);
+  QDel := TFDQuery.Create(nil);
+  try
+    QCheck.Connection := DataModule1.FDConnection1;
+    QDel.Connection := DataModule1.FDConnection1;
+
+        // Trouver idMembre depuis le nom complet (gère le cas où le prénom est vide)
+      QCheck.SQL.Text :=
+        'SELECT id FROM t_membre WHERE TRIM(nom || " " || IFNULL(prenom, "")) = :np';
+      QCheck.ParamByName('np').AsString := nomPrenom;
+      QCheck.Open;
+
+      // Si aucun résultat, essayer avec seulement le nom (au cas où le prénom est vide)
+      if QCheck.IsEmpty then
+      begin
+        QCheck.Close;
+        QCheck.SQL.Text := 'SELECT id FROM t_membre WHERE nom = :n';
+        QCheck.ParamByName('n').AsString := nomPrenom;
+        QCheck.Open;
+      end;
+
+    if QCheck.IsEmpty then
+    begin
+      ShowMessage('Membre introuvable dans la base.');
+      Exit;
+    end;
+
+    idMembre := QCheck.FieldByName('id').AsInteger;
+    QCheck.Close;
+
+    // Trouver idReunion depuis la date
+    QCheck.SQL.Text := 'SELECT id FROM t_reunion WHERE date_reunion = :dr';
+    QCheck.ParamByName('dr').AsString := dateReunion;
+    QCheck.Open;
+
+    if QCheck.IsEmpty then
+    begin
+      ShowMessage('Réunion introuvable dans la base.');
+      Exit;
+    end;
+
+    idReunion := QCheck.FieldByName('id').AsInteger;
+    QCheck.Close;
+
+    // Supprimer dans t_social
+    QDel.SQL.Text := 'DELETE FROM t_social WHERE idMembre = :idm AND idReunion = :idr';
+    QDel.ParamByName('idm').AsInteger := idMembre;
+    QDel.ParamByName('idr').AsInteger := idReunion;
+    QDel.ExecSQL;
+
+    ShowMessage('Le social sélectionnée a été supprimée avec succès.');
+
+    // Rafraîchir la grille
+    ChargerPresence;
+
+  finally
+    QCheck.Free;
+    QDel.Free;
+  end;
+end;
+
 
 
 procedure TForm7.ChargerPresence;
@@ -650,6 +806,9 @@ var
 begin
   Caption := 'GESTION DE GROUPE (Social)';
   VerficationChamp;
+  button2.Text:='💾 Enregistrer';
+  Button3.Text := '❌ Annuler';
+  Button4.Text := '🗑️ Supprimer';
     GridPresence.OnDrawColumnCell := GridPresenceDrawColumnCell;
 //    Legende du tableu
     Rectangle1.Fill.Color := TAlphaColorRec.Red;
@@ -674,7 +833,6 @@ begin
   end;
   ChargerPresence;
   ComboEdit2.SetFocus;
-
 end;
 
 procedure TForm7.Initialisation;

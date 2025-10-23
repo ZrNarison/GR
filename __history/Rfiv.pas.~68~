@@ -120,6 +120,26 @@ begin
     Close;
   end;
 
+  // Vérifier si des membres ont déjà ajouter une social
+  with DataModule1.FDQuery1 do
+  begin
+    Close;
+    SQL.Text := 'SELECT COUNT(*) AS Nb FROM t_social WHERE idReunion = :idr';
+    ParamByName('idr').AsInteger := IdReunion;
+    Open;
+
+    if FieldByName('Nb').AsInteger > 0 then
+    begin
+      TDialogService.ShowMessage(
+        'Impossible de supprimer une réunion dont les membre ajouté une valeur social .'
+      );
+      Close;
+      Exit;
+    end;
+
+    Close;
+  end;
+
   // Confirmation suppression
   TDialogService.MessageDialog(
     'Voulez-vous vraiment supprimer cette réunion ?',
@@ -173,6 +193,7 @@ var
   NbParticipants: Integer;
 begin
   // Vérifier si le champ est vide
+//               ShowMessage(DateEdit1.Text);
   if Trim(DateEdit1.Text) = '' then
   begin
     TDialogService.ShowMessage('Veuillez entrer une date de réunion.');
@@ -306,12 +327,12 @@ begin
   Button3.Text:='Présence';
   Button5.Text:='Social';
   Label2.Text:='Date du réunion';
-  button1.Text:='Enregistrer';
+  button1.Text:='💾 Enregistrer';
+  Button2.Text := '❌ Annuler';
+  Button4.Text := '🗑️ Supprimer';
   Initialisation;
   ChargerReunions;
 end;
-
-
 procedure TForm6.ChargerReunions;
 var
   i: Integer;
@@ -344,12 +365,14 @@ begin
 
     col := TStringColumn.Create(StringGrid1);
     col.Header := 'Date de réunion';
-    col.Width := 220;
+//    col.Width := 220;
+    col.Width := StringGrid1.Width;
     StringGrid1.AddObject(col);
 
     // --- Charger depuis la base ---
     qry.Close;
-    qry.SQL.Text := 'SELECT id, date_reunion FROM t_reunion ORDER BY id ASC';
+//    qry.SQL.Text := 'SELECT COUN, date_reunion FROM t_reunion ORDER BY id ASC';
+    qry.SQL.Text := 'SELECT id ,date_reunion FROM t_reunion ORDER BY id ASC';
     qry.Open;
     try
       RowCount := qry.RecordCount;

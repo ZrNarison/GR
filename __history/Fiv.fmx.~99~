@@ -1,25 +1,25 @@
-object Form7: TForm7
+object Form3: TForm3
   Left = 0
   Top = 0
-  Caption = 'Form7'
-  ClientHeight = 512
-  ClientWidth = 933
+  Caption = 'Form3'
+  ClientHeight = 501
+  ClientWidth = 929
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnCloseQuery = FormCloseQuery
   OnShow = FormShow
   DesignerMasterStyle = 0
   object Panel1: TPanel
     Anchors = [akLeft, akTop, akBottom]
-    Position.Y = -21.000000000000000000
     Size.Width = 345.000000000000000000
-    Size.Height = 533.000000000000000000
+    Size.Height = 501.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object Label1: TLabel
       Position.X = 8.000000000000000000
-      Position.Y = 72.000000000000000000
+      Position.Y = 46.000000000000000000
       Text = 'N'#176' Matricule'
       TabOrder = 0
     end
@@ -29,7 +29,7 @@ object Form7: TForm7
       ItemHeight = 19.000000000000000000
       ItemIndex = -1
       Position.X = 107.000000000000000000
-      Position.Y = 67.000000000000000000
+      Position.Y = 41.000000000000000000
       Size.Width = 110.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -37,7 +37,7 @@ object Form7: TForm7
     end
     object Label2: TLabel
       Position.X = 8.000000000000000000
-      Position.Y = 113.000000000000000000
+      Position.Y = 87.000000000000000000
       Size.Width = 49.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
@@ -47,16 +47,17 @@ object Form7: TForm7
     object Button3: TButton
       StyledSettings = [Family, Size, Style]
       Position.X = 257.000000000000000000
-      Position.Y = 479.000000000000000000
+      Position.Y = 453.000000000000000000
       TabOrder = 10
       Text = 'Annuler'
       TextSettings.FontColor = claRed
       TextSettings.Trimming = None
+      OnClick = Button3Click
     end
     object Button2: TButton
       StyledSettings = [Family, Size, Style]
       Position.X = 16.000000000000000000
-      Position.Y = 479.000000000000000000
+      Position.Y = 453.000000000000000000
       TabOrder = 9
       Text = 'Enregistrer'
       TextSettings.FontColor = claGreen
@@ -65,7 +66,7 @@ object Form7: TForm7
     end
     object Label3: TLabel
       Position.X = 7.000000000000000000
-      Position.Y = 156.000000000000000000
+      Position.Y = 130.000000000000000000
       Size.Width = 49.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
@@ -74,7 +75,7 @@ object Form7: TForm7
     end
     object Label4: TLabel
       Position.X = 7.000000000000000000
-      Position.Y = 202.000000000000000000
+      Position.Y = 176.000000000000000000
       Size.Width = 106.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
@@ -83,34 +84,37 @@ object Form7: TForm7
     end
     object Label7: TLabel
       Position.X = 8.000000000000000000
-      Position.Y = 349.000000000000000000
+      Position.Y = 323.000000000000000000
       Size.Width = 49.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'CIN'
       TabOrder = 3
+      OnApplyStyleLookup = ComboEdit1Change
     end
     object Label6: TLabel
       Position.X = 8.000000000000000000
-      Position.Y = 300.000000000000000000
+      Position.Y = 274.000000000000000000
       Size.Width = 49.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'Adresse'
       TabOrder = 4
+      OnApplyStyleLookup = ComboEdit1Change
     end
     object Label8: TLabel
       Position.X = 8.000000000000000000
-      Position.Y = 395.000000000000000000
+      Position.Y = 369.000000000000000000
       Size.Width = 88.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'R'#233'marque'
       TabOrder = 2
+      OnApplyStyleLookup = ComboEdit1Change
     end
     object Label11: TLabel
       Position.X = 8.000000000000000000
-      Position.Y = 34.000000000000000000
+      Position.Y = 8.000000000000000000
       Text = 'Date du r'#233'union'
       TabOrder = 11
     end
@@ -120,7 +124,7 @@ object Form7: TForm7
         'EN RETARD'
         'PRESENT')
       Position.X = 105.000000000000000000
-      Position.Y = 390.000000000000000000
+      Position.Y = 364.000000000000000000
       Size.Width = 112.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -133,15 +137,16 @@ object Form7: TForm7
       ItemHeight = 19.000000000000000000
       ItemIndex = -1
       Position.X = 107.000000000000000000
-      Position.Y = 29.000000000000000000
+      Position.Y = 3.000000000000000000
       Size.Width = 110.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
       OnChange = ComboEdit2Change
+      OnExit = ComboEdit2Exit
     end
     object Label5: TLabel
       Position.X = 8.000000000000000000
-      Position.Y = 250.000000000000000000
+      Position.Y = 224.000000000000000000
       Size.Width = 146.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
@@ -152,7 +157,7 @@ object Form7: TForm7
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 20
       Position.X = 107.000000000000000000
-      Position.Y = 108.000000000000000000
+      Position.Y = 82.000000000000000000
       Size.Width = 238.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -161,7 +166,7 @@ object Form7: TForm7
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 19
       Position.X = 107.000000000000000000
-      Position.Y = 151.000000000000000000
+      Position.Y = 125.000000000000000000
       Size.Width = 238.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -170,7 +175,7 @@ object Form7: TForm7
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 17
       Position.X = 107.000000000000000000
-      Position.Y = 197.000000000000000000
+      Position.Y = 171.000000000000000000
       Size.Width = 238.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -179,7 +184,7 @@ object Form7: TForm7
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 18
       Position.X = 107.000000000000000000
-      Position.Y = 245.000000000000000000
+      Position.Y = 219.000000000000000000
       Size.Width = 238.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -188,7 +193,7 @@ object Form7: TForm7
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 15
       Position.X = 107.000000000000000000
-      Position.Y = 295.000000000000000000
+      Position.Y = 269.000000000000000000
       Size.Width = 238.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -197,7 +202,7 @@ object Form7: TForm7
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 16
       Position.X = 107.000000000000000000
-      Position.Y = 344.000000000000000000
+      Position.Y = 318.000000000000000000
       Size.Width = 238.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -206,7 +211,7 @@ object Form7: TForm7
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 14
       Position.X = 107.000000000000000000
-      Position.Y = 438.000000000000000000
+      Position.Y = 412.000000000000000000
       Size.Width = 110.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
@@ -216,14 +221,14 @@ object Form7: TForm7
         item
         end>
       Position.X = 225.000000000000000000
-      Position.Y = 29.000000000000000000
+      Position.Y = 3.000000000000000000
       Size.Width = 112.000000000000000000
       Size.Height = 71.000000000000000000
       Size.PlatformDefault = False
     end
     object Button1: TButton
-      Position.X = 133.000000000000000000
-      Position.Y = 505.000000000000000000
+      Position.X = 134.000000000000000000
+      Position.Y = 479.000000000000000000
       TabOrder = 22
       Text = 'R'#233'union'
       TextSettings.Trimming = None
@@ -237,33 +242,34 @@ object Form7: TForm7
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     Text = 'Val Ajouter'
-    TabOrder = 1
+    TabOrder = 2
+    OnApplyStyleLookup = ComboEdit1Change
   end
   object GridPresence: TStringGrid
     Anchors = [akLeft, akTop, akRight, akBottom]
     CanFocus = True
     ClipChildren = True
     Position.X = 353.000000000000000000
-    Position.Y = 39.000000000000000000
-    Size.Width = 580.000000000000000000
+    Position.Y = 40.000000000000000000
+    Size.Width = 576.000000000000000000
     Size.Height = 441.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 2
-    Viewport.Width = 576.000000000000000000
+    TabOrder = 3
+    Viewport.Width = 572.000000000000000000
     Viewport.Height = 416.000000000000000000
   end
   object DateEdit1: TDateEdit
     Date = 45935.000000000000000000
     Position.X = 400.000000000000000000
     Position.Y = 10.000000000000000000
-    TabOrder = 4
+    TabOrder = 5
   end
   object DateEdit2: TDateEdit
     Date = 45935.000000000000000000
     Anchors = [akTop]
-    Position.X = 810.109375000000000000
+    Position.X = 703.000000000000000000
     Position.Y = 10.000000000000000000
-    TabOrder = 3
+    TabOrder = 4
   end
   object Label10: TLabel
     Anchors = [akRight, akBottom]
@@ -273,7 +279,7 @@ object Form7: TForm7
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     Text = 'Absent'
-    TabOrder = 8
+    TabOrder = 9
   end
   object Label12: TLabel
     Anchors = [akRight, akBottom]
@@ -283,7 +289,7 @@ object Form7: TForm7
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     Text = 'En retard'
-    TabOrder = 6
+    TabOrder = 7
   end
   object Label13: TLabel
     Anchors = [akRight, akBottom]
@@ -293,7 +299,7 @@ object Form7: TForm7
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     Text = 'Pr'#233'sent'
-    TabOrder = 5
+    TabOrder = 6
   end
   object Rectangle1: TRectangle
     Anchors = [akRight, akBottom]
@@ -327,7 +333,7 @@ object Form7: TForm7
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     Text = 'Avant Inscription'
-    TabOrder = 7
+    TabOrder = 8
   end
   object Rectangle4: TRectangle
     Anchors = [akRight, akBottom]
@@ -336,5 +342,17 @@ object Form7: TForm7
     Size.Width = 50.000000000000000000
     Size.Height = 10.000000000000000000
     Size.PlatformDefault = False
+  end
+  object Button4: TButton
+    Anchors = [akTop, akRight]
+    Position.X = 832.000000000000000000
+    Position.Y = 10.000000000000000000
+    Size.Width = 89.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 14
+    Text = 'X'
+    TextSettings.Trimming = None
+    OnClick = Button4Click
   end
 end

@@ -48,8 +48,8 @@ uses Fiv, Reunion, base, Social;
 procedure TForm6.Initialisation;
 begin
   DateEdit1.text:='';
-  button1.text:='Enregistrer';
-  button2.text:='Annuler';
+  Button1.Text:='➕ Ajouter';
+  Button2.Text:='❌ Annuler';
 end;
 
 procedure TForm6.StringGrid1CellClick(const Column: TColumn; const Row: Integer);
@@ -76,7 +76,7 @@ begin
   end;
 
   // Changer le texte du bouton pour signaler la modification
-  Button1.Text := 'Modifier';
+  Button1.Text := '✏ Modifier';
 end;
 
 
@@ -209,7 +209,7 @@ begin
   end;
 
   // --- Si on enregistre une nouvelle réunion ---
-  if Button1.Text = 'Enregistrer' then
+  if Button1.Text = '➕ Ajouter' then
   begin
 //   ShowMessage('ATO');
     // Vérifier si la date existe déjà
@@ -243,7 +243,7 @@ begin
   end
 
   // --- Si on modifie une réunion existante ---
-  else if Button1.Text = 'Modifier' then
+  else if Button1.Text = '✏ Modifier' then
   begin
     // Récupérer l'ID de la réunion sélectionnée
     IdReunion := StrToIntDef(StringGrid1.Cells[0, StringGrid1.Row], 0);
@@ -324,12 +324,10 @@ procedure TForm6.FormShow(Sender: TObject);
 begin
   Caption := 'GESTION DE GROUPE (Création d''une Réunion)';
   DateEdit1.Text:='';
-  Button3.Text:='Présence';
-  Button5.Text:='Social';
+  Button3.Text:='✅ Présence';
+  Button5.Text:='💰 S&ocial';
   Label2.Text:='Date du réunion';
-  button1.Text:='💾 Enregistrer';
-  Button2.Text := '❌ Annuler';
-  Button4.Text := '🗑️ Supprimer';
+  Button4.Text := '🗑 Supprimer';
   Initialisation;
   ChargerReunions;
 end;

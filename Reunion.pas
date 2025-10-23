@@ -28,7 +28,6 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
-    Button4: TButton;
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
@@ -42,13 +41,11 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Rectangle2Click(Sender: TObject);
     procedure Rectangle3Click(Sender: TObject);
-    procedure Rectangle4Click(Sender: TObject);
     procedure Rectangle6Click(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
@@ -745,7 +742,6 @@ begin
   Rectangle6.Fill.Color := TAlphaColorRec.Yellowgreen;
   button2.Text:='👤 &Membre';
   button3.Text:='📅 &Réunion';
-  button4.Text:='💰 S&ocial';
   button5.Text:='📥 Importer';
   button6.Text:='📤 Exporter';
   button7.Text:='⚙ Paramètres';
@@ -874,19 +870,6 @@ begin
   Form1.Hide;
 end;
 
-procedure TForm1.Button4Click(Sender: TObject);
-begin
-  if not Assigned(Form7) then
-    Form7 := TForm7.Create(Self);
-    Form7.Left   := Form1.Left;
-  Form7.Top    := Form1.Top;
-  Form7.Width  := Form1.Width;
-  Form7.Height := Form1.Height;
-//  ShowSplash;
-  Form7.Show;  // Afficher Form
-  Form1.Hide;
-end;
-
 procedure TForm1.Button5Click(Sender: TObject);
 begin
   ImporterTables;
@@ -912,11 +895,6 @@ end;
 procedure TForm1.Rectangle3Click(Sender: TObject);
 begin
   Button3Click(Button3);
-end;
-
-procedure TForm1.Rectangle4Click(Sender: TObject);
-begin
-    Button4Click(Button4);
 end;
 
 procedure TForm1.Rectangle6Click(Sender: TObject);

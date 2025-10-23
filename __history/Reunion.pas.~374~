@@ -81,7 +81,7 @@ implementation
 
 uses
   Membre, Fiv, user, Rfiv, uSplash, Social, Params,
-  Winapi.Windows; // pour Mutex sur Windows
+  Winapi.Windows, Depense; // pour Mutex sur Windows
 
 // -------------------------------------------------------------------
 procedure TForm1.Security;
@@ -199,7 +199,7 @@ begin
 
     while not QDate.EOF do
     begin
-      DateSel := QDate.FieldByName('date_reunion').AsDateTime;
+      DateSel := StrToDate(QDate.FieldByName('date_reunion').AsString);
 
       Q.SQL.Text := 'SELECT COUNT(DISTINCT idMembre) AS total FROM t_presence ' +
                     'WHERE idReunion IN (SELECT id FROM t_reunion WHERE date_reunion = :date)';
@@ -282,6 +282,7 @@ begin
   begin
     Connection := DataModule1.FDConnection1;
 //    Table des membres
+//    ExecSQL('DROP TABLE IF EXISTS t_membre');
     ExecSQL(
       'CREATE TABLE IF NOT EXISTS t_membre (' +
       'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
@@ -294,14 +295,14 @@ begin
       'filiation_mere TEXT,' +
       'sexe TEXT,' +
       'cin TEXT UNIQUE,' +
+      'date_delivrance TEXT,' +
       'adresse TEXT,' +
       'email TEXT,' +
       'telephone TEXT,' +
       'image TEXT,' +
       'date_inscription TEXT)'
     );
-
-//    ExecSQL('DROP TABLE IF EXISTS t_reunion'); //Effacer le table t_reunino s'il existe
+//    ExecSQL('DROP TABLE IF EXISTS t_reunion');
     ExecSQL(
       'CREATE TABLE IF NOT EXISTS t_reunion (' +
       'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
@@ -742,6 +743,13 @@ begin
   Rectangle4.Fill.Color := TAlphaColorRec.Red;
   Rectangle5.Fill.Color := TAlphaColorRec.Darkviolet;
   Rectangle6.Fill.Color := TAlphaColorRec.Yellowgreen;
+  button2.Text:='👤 &Membre';
+  button3.Text:='📅 &Réunion';
+  button4.Text:='💰 S&ocial';
+  button5.Text:='📥 Importer';
+  button6.Text:='📤 Exporter';
+  button7.Text:='⚙ Paramètres';
+  button1.Text:='🛡Utilisateur';
   Label4.Text:='REUNION';
   Label9.Text:='MEMBRE PUNIS';
   Label7.Text:='SOCIAL';
@@ -881,12 +889,14 @@ end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
-  ImporterTables
+  ImporterTables;
+  FormShow(Self);
 end;
 
 procedure TForm1.Button6Click(Sender: TObject);
 begin
   ExporterTables;
+  FormShow(Self);
 end;
 
 procedure TForm1.Button7Click(Sender: TObject);

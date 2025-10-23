@@ -76,8 +76,8 @@ object Form1: TForm1
       OnClick = Button2Click
     end
     object Button3: TButton
-      Position.X = 16.000000000000000000
-      Position.Y = 107.000000000000000000
+      Position.X = 18.000000000000000000
+      Position.Y = 87.000000000000000000
       Size.Width = 97.000000000000000000
       Size.Height = 36.000000000000000000
       Size.PlatformDefault = False
@@ -85,17 +85,6 @@ object Form1: TForm1
       Text = '&R'#233'union'
       TextSettings.Trimming = None
       OnClick = Button3Click
-    end
-    object Button4: TButton
-      Position.X = 16.000000000000000000
-      Position.Y = 201.000000000000000000
-      Size.Width = 97.000000000000000000
-      Size.Height = 36.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 5
-      Text = 'S&ocial'
-      TextSettings.Trimming = None
-      OnClick = Button4Click
     end
     object Button5: TButton
       Anchors = [akLeft, akBottom]
@@ -128,7 +117,7 @@ object Form1: TForm1
       Size.Width = 101.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 6
+      TabOrder = 5
       Text = 'Paramettre'
       TextSettings.Trimming = None
       OnClick = Button7Click
@@ -216,7 +205,6 @@ object Form1: TForm1
     Stroke.Dash = Custom
     Stroke.Join = Round
     Stroke.CustomDash = {020000000000803F0000803F00000000}
-    OnClick = Rectangle4Click
     object Label7: TLabel
       StyledSettings = [Family, Size, Style]
       Position.X = 6.000000000000000000

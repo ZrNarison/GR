@@ -42,6 +42,8 @@ type
     Edit7: TEdit;
     Image1: TImage;
     Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
     Label10: TLabel;
     Label12: TLabel;
     Label13: TLabel;
@@ -142,6 +144,9 @@ var
   QDates, QMat: TFDQuery;
 begin
   Caption := 'GESTION DE GROUPE ( Réunion)';
+    Button2.Text := '➕ Ajouter';
+    button3.Text:='❌ Annuler';
+  Button1.Text:='📅 &Réunion';
 
   VerficationChamp;
     GridPresence.OnDrawColumnCell := GridPresenceDrawColumnCell;

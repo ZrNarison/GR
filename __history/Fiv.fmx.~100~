@@ -227,7 +227,7 @@ object Form3: TForm3
       Size.PlatformDefault = False
     end
     object Button1: TButton
-      Position.X = 120.000000000000000000
+      Position.X = 134.000000000000000000
       Position.Y = 479.000000000000000000
       TabOrder = 22
       Text = 'R'#233'union'
@@ -267,7 +267,7 @@ object Form3: TForm3
   object DateEdit2: TDateEdit
     Date = 45935.000000000000000000
     Anchors = [akTop]
-    Position.X = 774.931701660156300000
+    Position.X = 703.000000000000000000
     Position.Y = 10.000000000000000000
     TabOrder = 4
   end
@@ -342,5 +342,17 @@ object Form3: TForm3
     Size.Width = 50.000000000000000000
     Size.Height = 10.000000000000000000
     Size.PlatformDefault = False
+  end
+  object Button4: TButton
+    Anchors = [akTop, akRight]
+    Position.X = 823.000000000000000000
+    Position.Y = 10.000000000000000000
+    Size.Width = 98.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 14
+    Text = 'X'
+    TextSettings.Trimming = None
+    OnClick = Button4Click
   end
 end
