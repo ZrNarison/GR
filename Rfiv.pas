@@ -1,0 +1,419 @@
+﻿unit Rfiv;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Controls.Presentation, System.Rtti, FMX.Grid.Style, FMX.ScrollBox,
+  FMX.Grid, FMX.Edit, FMX.DateTimeCtrls,FireDAC.Comp.Client, FireDAC.Comp.DataSet, Data.DB
+  , FMX.DialogService;
+
+type
+  TForm6 = class(TForm)
+    Panel1: TPanel;
+    Label2: TLabel;
+    StringGrid1: TStringGrid;
+    DateEdit1: TDateEdit;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    procedure FormShow(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure Button4Click(Sender: TObject);
+    procedure StringGrid1CellClick(const Column: TColumn; const Row: Integer);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+  private
+    { Déclarations privées }
+    procedure Initialisation;
+    procedure ChargerReunions;
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  Form6: TForm6;
+
+implementation
+
+{$R *.fmx}
+
+uses Fiv, Reunion, base, Social;
+
+procedure TForm6.Initialisation;
+begin
+  DateEdit1.text:='';
+  button1.text:='Enregistrer';
+  button2.text:='Annuler';
+end;
+
+procedure TForm6.StringGrid1CellClick(const Column: TColumn; const Row: Integer);
+var
+  DateStr: string;
+  DateReunion: TDate;
+//  DateReunion: TDate;
+begin
+  if Row < 0 then Exit; // Vérification ligne valide
+
+  // Récupérer la date de la cellule (colonne 1 = date_reunion)
+  DateStr := StringGrid1.Cells[1, Row];
+
+  // Conversion sécurisée pour FMX mobile
+  DateReunion := StrToDateDef(DateStr, 0);
+
+  if DateReunion <> 0 then
+    DateEdit1.Date := DateReunion
+  else
+  begin
+    DateEdit1.Text := '';
+    // Affichage message FMX
+    TDialogService.ShowMessage('Date invalide dans la cellule sélectionnée.');
+  end;
+
+  // Changer le texte du bouton pour signaler la modification
+  Button1.Text := 'Modifier';
+end;
+
+
+procedure TForm6.Button4Click(Sender: TObject);
+var
+  IdReunion: Integer;
+  row: Integer;
+begin
+  row := StringGrid1.Row;
+  if row < 0 then
+  begin
+    TDialogService.ShowMessage('Veuillez sélectionner une réunion à supprimer.');
+    Exit;
+  end;
+
+  // Récupérer l'ID de la réunion
+  IdReunion := StrToIntDef(StringGrid1.Cells[0, row], 0);
+  if IdReunion = 0 then
+  begin
+    TDialogService.ShowMessage('ID de réunion invalide.');
+    Exit;
+  end;
+
+  // Vérifier si des membres ont déjà participé
+  with DataModule1.FDQuery1 do
+  begin
+    Close;
+    SQL.Text := 'SELECT COUNT(*) AS Nb FROM t_presence WHERE idReunion = :idr';
+    ParamByName('idr').AsInteger := IdReunion;
+    Open;
+
+    if FieldByName('Nb').AsInteger > 0 then
+    begin
+      TDialogService.ShowMessage(
+        'Impossible de supprimer une réunion dont les membre ayant déjà participé .'
+      );
+      Close;
+      Exit;
+    end;
+
+    Close;
+  end;
+
+  // Vérifier si des membres ont déjà ajouter une social
+  with DataModule1.FDQuery1 do
+  begin
+    Close;
+    SQL.Text := 'SELECT COUNT(*) AS Nb FROM t_social WHERE idReunion = :idr';
+    ParamByName('idr').AsInteger := IdReunion;
+    Open;
+
+    if FieldByName('Nb').AsInteger > 0 then
+    begin
+      TDialogService.ShowMessage(
+        'Impossible de supprimer une réunion dont les membre ajouté une valeur social .'
+      );
+      Close;
+      Exit;
+    end;
+
+    Close;
+  end;
+
+  // Confirmation suppression
+  TDialogService.MessageDialog(
+    'Voulez-vous vraiment supprimer cette réunion ?',
+    TMsgDlgType.mtConfirmation,
+    [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
+    TMsgDlgBtn.mbNo,
+    0,
+    procedure(const AResult: TModalResult)
+    begin
+      if AResult = mrYes then
+      begin
+        try
+          with DataModule1.FDQuery1 do
+          begin
+            Close;
+            SQL.Text := 'DELETE FROM t_reunion WHERE id = :idr';
+            ParamByName('idr').AsInteger := IdReunion;
+            ExecSQL;
+          end;
+
+          TDialogService.ShowMessage('Réunion supprimée avec succès.');
+          Initialisation;
+          ChargerReunions; // rafraîchir le StringGrid
+        except
+          on E: Exception do
+            TDialogService.ShowMessage('Erreur lors de la suppression : ' + E.Message);
+        end;
+      end;
+    end
+  );
+end;
+
+
+
+procedure TForm6.Button5Click(Sender: TObject);
+begin
+  if not Assigned(Form7) then
+    Form7 := TForm7.Create(Self);
+    Form7.Left   := Form6.Left;
+  Form7.Top    := Form6.Top;
+  Form7.Width  := Form6.Width;
+  Form7.Height := Form6.Height;
+  Form7.Show;  // Afficher Form
+  Form6.Hide;
+end;
+
+procedure TForm6.Button1Click(Sender: TObject);
+var
+  DateReunion: TDate;
+  IdReunion: Integer;
+  NbParticipants: Integer;
+begin
+  // Vérifier si le champ est vide
+//               ShowMessage(DateEdit1.Text);
+  if Trim(DateEdit1.Text) = '' then
+  begin
+    TDialogService.ShowMessage('Veuillez entrer une date de réunion.');
+    Exit;
+  end;
+
+  // Conversion sécurisée pour FMX
+  DateReunion := StrToDateDef(DateEdit1.Text, 0);
+  if DateReunion = 0 then
+  begin
+    TDialogService.ShowMessage('Date invalide. Veuillez entrer une date correcte.');
+    Exit;
+  end;
+
+  // --- Si on enregistre une nouvelle réunion ---
+  if Button1.Text = 'Enregistrer' then
+  begin
+//   ShowMessage('ATO');
+    // Vérifier si la date existe déjà
+    with DataModule1.FDQuery1 do
+    begin
+      Close;
+      SQL.Text := 'SELECT COUNT(*) AS nb FROM t_reunion WHERE date_reunion = :d';
+      ParamByName('d').AsString := DatetoStr(DateReunion);
+      Open;
+      try
+        if FieldByName('nb').AsInteger > 0 then
+        begin
+          TDialogService.ShowMessage('Cette date de réunion existe déjà.');
+          Exit;
+        end;
+      finally
+        Close;
+      end;
+
+      // Insérer la nouvelle réunion
+      SQL.Text := 'INSERT INTO t_reunion (date_reunion) VALUES (:d)';
+      ParamByName('d').AsString := DateToStr(DateReunion);
+      ExecSQL;
+    end;
+
+//    TDialogService.ShowMessage('Réunion enregistrée avec succès !');
+    DateEdit1.Text := '';
+    Initialisation;
+    ChargerReunions;
+    Exit;
+  end
+
+  // --- Si on modifie une réunion existante ---
+  else if Button1.Text = 'Modifier' then
+  begin
+    // Récupérer l'ID de la réunion sélectionnée
+    IdReunion := StrToIntDef(StringGrid1.Cells[0, StringGrid1.Row], 0);
+    if IdReunion = 0 then
+    begin
+      TDialogService.ShowMessage('Aucune réunion sélectionnée pour modification.');
+      Exit;
+    end;
+
+    // Vérifier si des participants existent déjà
+    with DataModule1.FDQuery1 do
+    begin
+      Close;
+      SQL.Text := 'SELECT COUNT(*) AS Nb FROM t_presence WHERE idReunion = :idr';
+      ParamByName('idr').AsInteger := IdReunion;
+      Open;
+      try
+        NbParticipants := FieldByName('Nb').AsInteger;
+      finally
+        Close;
+      end;
+    end;
+
+    if NbParticipants > 0 then
+    begin
+      TDialogService.ShowMessage(
+        'Il y a une réunion qui est enregistrer à cette date.'
+      );
+      Exit;
+    end;
+
+    // Modifier la date
+    with DataModule1.FDQuery1 do
+    begin
+      Close;
+      SQL.Text := 'UPDATE t_reunion SET date_reunion = :d WHERE id = :idr';
+      ParamByName('d').AsString := DatetoStr(DateReunion);
+      ParamByName('idr').AsInteger := IdReunion;
+      ExecSQL;
+    end;
+
+//    TDialogService.ShowMessage('Réunion modifiée avec succès !');
+    Initialisation;
+    ChargerReunions;
+  end;
+end;
+
+procedure TForm6.Button2Click(Sender: TObject);
+begin
+  Initialisation;
+end;
+
+procedure TForm6.Button3Click(Sender: TObject);
+begin
+  if not Assigned(Form3) then
+    Form3 := TForm3.Create(Self);
+  Form3.Left   := Form6.Left;
+  Form3.Top    := Form6.Top;
+  Form3.Width  := Form6.Width;
+  Form3.Height := Form6.Height;
+  Form3.Show;
+  Form6.Hide;
+end;
+
+procedure TForm6.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  if not Assigned(Form1) then
+    Form1 := TForm1.Create(Self);
+  Form1.Left   := Form6.Left;
+  Form1.Top    := Form6.Top;
+  Form1.Width  := Form6.Width;
+  Form1.Height := Form6.Height;
+  Form1.Show;
+  Form6.hide;
+end;
+
+procedure TForm6.FormShow(Sender: TObject);
+begin
+  Caption := 'GESTION DE GROUPE (Création d''une Réunion)';
+  DateEdit1.Text:='';
+  Button3.Text:='Présence';
+  Button5.Text:='Social';
+  Label2.Text:='Date du réunion';
+  button1.Text:='💾 Enregistrer';
+  Button2.Text := '❌ Annuler';
+  Button4.Text := '🗑️ Supprimer';
+  Initialisation;
+  ChargerReunions;
+end;
+procedure TForm6.ChargerReunions;
+var
+  i: Integer;
+  RowCount: Integer;
+  qry: TFDQuery;
+  col: TStringColumn;
+begin
+  // Defensive : s'assurer que le Query est disponible
+  qry := DataModule1.FDQuery1;
+
+  StringGrid1.BeginUpdate;
+  try
+    // --- Supprimer les colonnes existantes ---
+    // ClearColumns existe dans FMX TStringGrid ; si tu as une erreur, utilise l'alternative commentée ci-dessous.
+    try
+      StringGrid1.ClearColumns;
+    except
+      // Alternative si ClearColumns n'existe pas (décommenter si nécessaire):
+      {
+      while StringGrid1.ColumnCount > 0 do
+        StringGrid1.RemoveObject(StringGrid1.Columns[0]);
+      }
+    end;
+
+    // --- Création des colonnes ---
+    col := TStringColumn.Create(StringGrid1);
+    col.Header := 'ID';
+    col.Width := 60;
+    StringGrid1.AddObject(col);
+
+    col := TStringColumn.Create(StringGrid1);
+    col.Header := 'Date de réunion';
+//    col.Width := 220;
+    col.Width := StringGrid1.Width;
+    StringGrid1.AddObject(col);
+
+    // --- Charger depuis la base ---
+    qry.Close;
+//    qry.SQL.Text := 'SELECT COUN, date_reunion FROM t_reunion ORDER BY id ASC';
+    qry.SQL.Text := 'SELECT id ,date_reunion FROM t_reunion ORDER BY id ASC';
+    qry.Open;
+    try
+      RowCount := qry.RecordCount;
+
+      // Préallouer les lignes (RowCount = nombre de lignes de données)
+      StringGrid1.RowCount := RowCount;
+
+      if RowCount = 0 then
+        Exit; // rien à remplir
+
+      i := 0;
+      qry.First;
+      while not qry.Eof do
+      begin
+        // Sécurité : s'assurer que les colonnes existent (2 colonnes : index 0 et 1)
+        if StringGrid1.ColumnCount >= 2 then
+        begin
+          // Champ id
+          if not qry.FieldByName('id').IsNull then
+            StringGrid1.Cells[0, i] := qry.FieldByName('id').AsString
+          else
+            StringGrid1.Cells[0, i] := '';
+
+          // Champ date_reunion (gestion du NULL)
+          if not qry.FieldByName('date_reunion').IsNull then
+            StringGrid1.Cells[1, i] := qry.FieldByName('date_reunion').AsString
+          else
+            StringGrid1.Cells[1, i] := '';
+        end;
+
+        Inc(i);
+        qry.Next;
+      end;
+    finally
+      qry.Close;
+    end;
+  finally
+    StringGrid1.EndUpdate;
+  end;
+end;
+
+
+
+end.

@@ -1,0 +1,105 @@
+object Form9: TForm9
+  Left = 0
+  Top = 0
+  Caption = 'Form9'
+  ClientHeight = 232
+  ClientWidth = 373
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Edit2: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 5
+    Password = True
+    MaxLength = 50
+    Position.X = 114.000000000000000000
+    Position.Y = 87.000000000000000000
+    Size.Width = 203.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 0
+    KeyboardType = NumberPad
+    MaxLength = 12
+    Position.X = 115.000000000000000000
+    Position.Y = 20.000000000000000000
+    Size.Width = 203.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    OnChange = Edit1Change
+  end
+  object CheckBox1: TCheckBox
+    Position.X = 297.000000000000000000
+    Position.Y = 87.000000000000000000
+    Size.Width = 20.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+  end
+  object Edit4: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 2
+    Password = True
+    MaxLength = 50
+    Position.X = 114.000000000000000000
+    Position.Y = 162.000000000000000000
+    Size.Width = 203.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    object CheckBox2: TCheckBox
+      Position.X = 183.000000000000000000
+      TabOrder = 0
+      Text = 'CheckBox2'
+    end
+  end
+  object Label5: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 167.000000000000000000
+    Size.Width = 107.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Confirmation'
+    TabOrder = 7
+  end
+  object Label3: TLabel
+    Position.X = 6.000000000000000000
+    Position.Y = 92.000000000000000000
+    Size.Width = 107.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Mot de passe'
+    TabOrder = 8
+  end
+  object Label2: TLabel
+    Position.X = 7.000000000000000000
+    Position.Y = 25.000000000000000000
+    Size.Width = 107.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Identification'
+    TabOrder = 9
+  end
+  object Button2: TButton
+    StyledSettings = [Family, Size, Style]
+    Position.X = 16.000000000000000000
+    Position.Y = 202.000000000000000000
+    TabOrder = 3
+    Text = 'Enregistrer'
+    TextSettings.FontColor = claGreen
+    TextSettings.Trimming = None
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    StyledSettings = [Family, Size, Style]
+    Position.X = 257.000000000000000000
+    Position.Y = 202.000000000000000000
+    TabOrder = 4
+    Text = 'Annuler'
+    TextSettings.FontColor = claRed
+    TextSettings.Trimming = None
+  end
+end

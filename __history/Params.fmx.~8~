@@ -1,0 +1,81 @@
+object Form8: TForm8
+  Left = 0
+  Top = 0
+  Caption = 'Form8'
+  ClientHeight = 374
+  ClientWidth = 375
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Label1: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 192.000000000000000000
+    Size.Width = 65.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Nom'
+    TabOrder = 1
+  end
+  object Label2: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 232.000000000000000000
+    Size.Width = 65.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Adresse'
+    TabOrder = 0
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 3
+    Position.X = 88.000000000000000000
+    Position.Y = 187.000000000000000000
+    Size.Width = 279.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Edit2: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 2
+    Position.X = 88.000000000000000000
+    Position.Y = 227.000000000000000000
+    Size.Width = 279.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Image1: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 128.000000000000000000
+    Position.Y = 16.000000000000000000
+    Size.Width = 169.000000000000000000
+    Size.Height = 153.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Button1: TButton
+    Position.X = 8.000000000000000000
+    Position.Y = 257.000000000000000000
+    Size.Width = 359.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Text = 'Button1'
+    TextSettings.Trimming = None
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Position.X = 272.000000000000000000
+    Position.Y = 312.000000000000000000
+    TabOrder = 7
+    Text = 'Button2'
+    TextSettings.Trimming = None
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 320
+    Top = 112
+  end
+end

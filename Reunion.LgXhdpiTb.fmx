@@ -1,0 +1,39 @@
+inherited Form1_LgXhdpiTb: TForm1_LgXhdpiTb
+  ClientHeight = 829
+  ClientWidth = 480
+  DesignerMasterStyle = 3
+  inherited Label1: TLabel
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+  end
+  inherited Rectangle1: TRectangle
+    inherited Button1: TButton
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+    end
+  end
+  inherited Rectangle2: TRectangle
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+    inherited Label3: TLabel
+      Position.X = 16.000000000000000000
+    end
+  end
+  inherited Rectangle3: TRectangle
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+  end
+  inherited Rectangle4: TRectangle
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+    inherited Label8: TLabel
+      Position.X = 8.000000000000000000
+    end
+    inherited Rectangle6: TRectangle
+      Stroke.CustomDash = {020000000000803F0000803F00000000}
+    end
+  end
+  inherited Rectangle5: TRectangle
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+  end
+  inherited Chart1: TChart
+    Foot.Font.StyleExt = {00040000000200000004000000}
+    Legend.Title.Font.StyleExt = {00070000000000000004000000}
+    SubFoot.Font.StyleExt = {00040000000200000004000000}
+  end
+end

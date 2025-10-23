@@ -1,0 +1,263 @@
+unit user;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Edit, FMX.Controls.Presentation, FMX.ListView.Types,
+  FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
+  FMX.ListBox, System.Rtti, FMX.Grid.Style, FMX.ScrollBox, FMX.Grid;
+
+type
+  TForm4 = class(TForm)
+    Panel1: TPanel;
+    Label2: TLabel;
+    Edit1: TEdit;
+    Button3: TButton;
+    Button2: TButton;
+    Label3: TLabel;
+    Edit2: TEdit;
+    Edit4: TEdit;
+    Label5: TLabel;
+    CheckBox1: TCheckBox;
+    Label1: TLabel;
+    ComboBox1: TComboBox;
+    CheckBox2: TCheckBox;
+    StringGrid1: TStringGrid;
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure CheckBox1Change(Sender: TObject);
+    procedure CheckBox2Change(Sender: TObject);
+  private
+    { Déclarations privées }
+    procedure Initialisation;
+    procedure ChargerStringGrid1;
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  Form4: TForm4;
+
+implementation
+
+{$R *.fmx}
+
+uses base, Reunion;
+
+procedure TForm4.Button2Click(Sender: TObject);
+begin
+  // Vérifier si le CIN existe dans t_membre
+  with DataModule1.FDQuery3 do
+  begin
+    Close;
+    SQL.Text := 'SELECT cin FROM t_membre WHERE cin = :cin';
+    ParamByName('cin').AsString := Edit1.Text;
+    Open;
+
+    if Eof then
+    begin
+      ShowMessage('N° d''identification non trouvé.');
+      Exit;
+    end;
+    Close;
+  end;
+
+  // Vérifier mot de passe et confirmation
+  if Edit2.Text = Edit4.Text then
+  begin
+    // Vérifier si le CIN existe déjà dans t_utilisateur
+    with DataModule1.FDQuery3 do
+    begin
+      Close;
+      SQL.Text := 'SELECT cin FROM t_utilisateur WHERE cin = :cin';
+      ParamByName('cin').AsString := Edit1.Text;
+      Open;
+
+      if not Eof then
+      begin
+        ShowMessage('Ce CIN existe déjà, veuillez en choisir un autre.');
+        Exit;
+      end;
+      Close;
+    end;
+
+    // Insérer dans t_utilisateur
+    with DataModule1.FDQuery3 do
+    begin
+      Close;
+      SQL.Text :=
+        'INSERT INTO t_utilisateur (cin, mdp, categorie) ' +
+        'VALUES (:cin, :mdp, :categorie)';
+
+      ParamByName('cin').AsString := Edit1.Text;
+      ParamByName('mdp').AsString := Edit2.Text;
+      ParamByName('categorie').AsString := ComboBox1.Text;
+      ExecSQL;
+
+      ShowMessage('Utilisateur enregistré avec succès !');
+
+      // Réinitialiser les champs
+      Edit1.Text := '';
+      Edit2.Text := '';
+      Edit4.Text := '';
+      ComboBox1.ItemIndex := -1;
+      Edit1.SetFocus;
+    end;
+  end
+  else
+  begin
+    ShowMessage('Code de confirmation incorrect, merci de réessayer !');
+    Edit2.Text := '';
+    Edit4.Text := '';
+    Edit2.SetFocus;
+  end;
+end;
+
+
+
+procedure TForm4.Initialisation;
+begin
+    Edit1.Text:='';
+    Edit2.Text:='';
+    Edit4.Text:='';
+    CheckBox1.Text:='';
+    CheckBox2.Text:='';
+    ComboBox1.Items.Clear;
+    ComboBox1.Items.Add('ADMINISTRATEUR');
+    ComboBox1.Items.Add('UTILISATEUR');
+    ComboBox1.ItemIndex := -1;
+    Edit1.SetFocus;
+end;
+
+
+procedure TForm4.CheckBox1Change(Sender: TObject);
+begin
+  if CheckBox1.IsChecked then
+  Edit2.Password:=false
+  else
+  Edit2.Password:=true;
+end;
+
+procedure TForm4.CheckBox2Change(Sender: TObject);
+begin
+  if CheckBox2.IsChecked then
+  Edit4.Password:=false
+  else
+  Edit4.Password:=true;
+end;
+
+procedure TForm4.Button3Click(Sender: TObject);
+begin
+  Initialisation;
+end;
+
+procedure TForm4.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  if not Assigned(Form1) then
+    Form1 := TForm1.Create(Self);
+    Form1.Left   := Form4.Left;
+    Form1.Top    := Form4.Top;
+    Form1.Width  := Form4.Width;
+    Form1.Height := Form4.Height;
+    Form1.Show;  // Afficher Form2
+end;
+
+procedure TForm4.FormCreate(Sender: TObject);
+begin
+  Position := TFormPosition.ScreenCenter;
+  Label5.Text:='Indetifation';
+  Label3.Text:='Mot de passe';
+  Label5.text:='Confirmation';
+end;
+
+procedure TForm4.ChargerStringGrid1;
+var
+  Col: TStringColumn;
+  i: Integer;
+begin
+  // Préparer le grid (FMX TStringGrid)
+  StringGrid1.BeginUpdate;
+  try
+    // Supprimer les anciennes colonnes et lignes
+    StringGrid1.ClearColumns;
+    StringGrid1.RowCount := 0;
+
+    // --- Création des colonnes FMX ---
+    Col := TStringColumn.Create(StringGrid1);
+    Col.Header := 'N°';
+    Col.Width := 40;
+    StringGrid1.AddObject(Col);
+
+    Col := TStringColumn.Create(StringGrid1);
+    Col.Header := 'Nom et Prénom';
+    Col.Width := 400;
+    StringGrid1.AddObject(Col);
+
+    Col := TStringColumn.Create(StringGrid1);
+    Col.Header := 'Catégorie';
+    Col.Width := 120;
+    StringGrid1.AddObject(Col);
+
+    // --- En-tête (1ère ligne) ---
+    StringGrid1.RowCount := 1;
+//    StringGrid1.Cells[0, 0] := 'N°';
+//    StringGrid1.Cells[1, 0] := 'Nom et Prénom';
+//    StringGrid1.Cells[2, 0] := 'Catégorie';
+
+    // --- Remplir les données depuis la base ---
+    with DataModule1.FDQuery3 do
+    begin
+      Close;
+      SQL.Text :=
+        'SELECT m.nom, m.prenom, m.cin, u.categorie ' +
+        'FROM t_utilisateur u ' +
+        'INNER JOIN t_membre m ON m.cin = u.cin ' +
+        'ORDER BY m.nom, m.prenom';
+      Open;
+
+      try
+        i := 1; // première ligne de données (0 = en-tête)
+        while not Eof do
+        begin
+          StringGrid1.RowCount := i + 1;
+
+          // Numéro
+          StringGrid1.Cells[0, i] := IntToStr(i);
+
+          // Nom et prénom
+          StringGrid1.Cells[1, i] := Trim(
+            FieldByName('nom').AsString + ' ' + FieldByName('prenom').AsString
+          );
+
+          // Catégorie
+          StringGrid1.Cells[2, i] := FieldByName('categorie').AsString;
+
+          Inc(i);
+          Next;
+        end;
+      finally
+        Close;
+      end;
+    end;
+  finally
+    StringGrid1.EndUpdate;
+  end;
+end;
+
+
+procedure TForm4.FormShow(Sender: TObject);
+begin
+        Caption := 'Gestion de Réunion';
+        Initialisation;
+       ChargerStringGrid1
+  // (Optionnel) Si tu veux un effet de sélection sur toute la ligne :
+  // en FMX, ça se fait via les propriétés du style (pas via Options)
+  // Exemple : StringGrid1.SelectionMode := TGridSelectionMode.RowRange;
+end;
+
+end.

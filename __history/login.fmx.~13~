@@ -1,0 +1,110 @@
+object Form5: TForm5
+  Left = 0
+  Top = 0
+  BorderStyle = SizeToolWin
+  Caption = 'Form5'
+  ClientHeight = 439
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Label1: TLabel
+    Position.X = 184.000000000000000000
+    Position.Y = 149.000000000000000000
+    Size.Width = 160.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Label1'
+    TabOrder = 0
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 1
+    Position.X = 320.000000000000000000
+    Position.Y = 144.000000000000000000
+    Size.Width = 273.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Label2: TLabel
+    Position.X = 184.000000000000000000
+    Position.Y = 237.000000000000000000
+    Size.Width = 160.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Label2'
+    TabOrder = 2
+  end
+  object Edit2: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 3
+    Position.X = 320.000000000000000000
+    Position.Y = 232.000000000000000000
+    Size.Width = 273.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Label3: TLabel
+    Position.X = 200.000000000000000000
+    Position.Y = 72.000000000000000000
+    Size.Width = 393.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Label3'
+    TabOrder = 4
+  end
+  object Button1: TButton
+    StyledSettings = [Family, Size]
+    Position.X = 264.000000000000000000
+    Position.Y = 320.000000000000000000
+    Size.Width = 89.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Text = 'Se Connecter'
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claGreen
+    TextSettings.WordWrap = True
+    TextSettings.Trimming = None
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    StyledSettings = [Family, Size]
+    Position.X = 488.000000000000000000
+    Position.Y = 320.000000000000000000
+    Size.Width = 88.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    Text = 'Quitter'
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claRed
+    TextSettings.WordWrap = True
+    TextSettings.Trimming = None
+  end
+  object Button3: TButton
+    Position.X = 608.000000000000000000
+    Position.Y = 376.000000000000000000
+    Size.Width = 24.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 7
+    Text = '?'
+    TextSettings.Trimming = None
+  end
+  object Label4: TLabel
+    StyledSettings = [Family, Size]
+    Position.X = 392.000000000000000000
+    Position.Y = 414.000000000000000000
+    Size.Width = 248.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.StyleExt = {00070000000200000004000000}
+    TextSettings.FontColor = claRed
+    Text = 'Label4'
+    TabOrder = 8
+  end
+end

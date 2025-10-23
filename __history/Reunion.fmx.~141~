@@ -1,0 +1,341 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 541
+  ClientWidth = 909
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Label1: TLabel
+    Align = Scale
+    StyledSettings = [FontColor]
+    Position.X = 170.953445434570300000
+    Position.Y = -6.000000000000000000
+    Size.Width = 556.482238769531300000
+    Size.Height = 53.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Adobe Arabic'
+    TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    Text = 'Tableau de bord'
+    TabOrder = 0
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 112
+    Top = 33
+  end
+  object Label6: TLabel
+    Anchors = [akRight, akBottom]
+    StyledSettings = [Family, Size, Style]
+    Position.X = 701.000000000000000000
+    Position.Y = 505.000000000000000000
+    Size.Width = 150.000000000000000000
+    Size.Height = 20.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.FontColor = claRed
+    TextSettings.Trimming = Word
+    Text = 'Label6'
+    TabOrder = 2
+  end
+  object Rectangle1: TRectangle
+    Anchors = [akLeft, akTop, akBottom]
+    Size.Width = 137.000000000000000000
+    Size.Height = 541.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object Button1: TButton
+      Anchors = [akLeft, akRight, akBottom]
+      StyledSettings = [Family, Size]
+      Position.X = 12.000000000000000000
+      Position.Y = 511.000000000000000000
+      Size.Width = 103.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Button1'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claNull
+      TextSettings.Trimming = None
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 97.000000000000000000
+      Size.Height = 73.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = '&Membre'
+      TextSettings.Trimming = None
+      OnClick = Button2Click
+    end
+    object Button3: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 107.000000000000000000
+      Size.Width = 97.000000000000000000
+      Size.Height = 73.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = '&R'#233'union'
+      TextSettings.Trimming = None
+      OnClick = Button3Click
+    end
+    object Button4: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 201.000000000000000000
+      Size.Width = 97.000000000000000000
+      Size.Height = 73.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+      Text = 'S&ocial'
+      TextSettings.Trimming = None
+      OnClick = Button4Click
+    end
+    object Button5: TButton
+      Anchors = [akLeft, akBottom]
+      Position.X = 12.000000000000000000
+      Position.Y = 421.000000000000000000
+      Size.Width = 103.000000000000000000
+      Size.Height = 27.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+      Text = 'I&mporter'
+      TextSettings.Trimming = None
+      OnClick = Button5Click
+    end
+    object Button6: TButton
+      Anchors = [akLeft, akBottom]
+      Position.X = 12.000000000000000000
+      Position.Y = 464.000000000000000000
+      Size.Width = 103.000000000000000000
+      Size.Height = 27.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = 'E&xporter'
+      TextSettings.Trimming = None
+      OnClick = Button6Click
+    end
+    object Button7: TButton
+      Position.X = 14.000000000000000000
+      Position.Y = 372.000000000000000000
+      Size.Width = 101.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+      Text = 'Paramettre'
+      TextSettings.Trimming = None
+      OnClick = Button7Click
+    end
+  end
+  object Rectangle2: TRectangle
+    Position.X = 152.000000000000000000
+    Position.Y = 71.000000000000000000
+    Size.Width = 122.000000000000000000
+    Size.Height = 59.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Cap = Round
+    Stroke.Dash = Custom
+    Stroke.Join = Round
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+    OnClick = Rectangle2Click
+    object Label2: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.X = 8.000000000000000000
+      Position.Y = -5.000000000000000000
+      Size.Width = 153.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label2'
+      TabOrder = 0
+    end
+    object Label3: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.Y = 26.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label3'
+      TabOrder = 1
+    end
+  end
+  object Rectangle3: TRectangle
+    Anchors = [akTop]
+    Position.X = 310.000000000000000000
+    Position.Y = 71.000000000000000000
+    Size.Width = 122.000000000000000000
+    Size.Height = 59.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Cap = Round
+    Stroke.Dash = Custom
+    Stroke.Join = Round
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+    OnClick = Rectangle3Click
+    object Label4: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.X = 6.000000000000000000
+      Position.Y = -8.000000000000000000
+      Size.Width = 143.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label2'
+      TabOrder = 0
+    end
+    object Label5: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.X = 4.000000000000000000
+      Position.Y = 18.000000000000000000
+      Size.Width = 110.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label3'
+      TabOrder = 1
+    end
+  end
+  object Rectangle4: TRectangle
+    Anchors = [akTop]
+    Position.X = 622.000000000000000000
+    Position.Y = 71.000000000000000000
+    Size.Width = 122.000000000000000000
+    Size.Height = 57.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Cap = Round
+    Stroke.Dash = Custom
+    Stroke.Join = Round
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+    OnClick = Rectangle4Click
+    object Label7: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.X = 6.000000000000000000
+      Position.Y = -8.000000000000000000
+      Size.Width = 143.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label2'
+      TabOrder = 0
+    end
+    object Label8: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.Y = 18.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label3'
+      TabOrder = 1
+    end
+    object Rectangle6: TRectangle
+      Align = Scale
+      Anchors = [akTop, akRight]
+      Position.X = 157.000000000000000000
+      Size.Width = 122.000000000000000000
+      Size.Height = 57.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      Stroke.Cap = Round
+      Stroke.Dash = Custom
+      Stroke.Join = Round
+      Stroke.CustomDash = {020000000000803F0000803F00000000}
+      OnClick = Rectangle6Click
+      object Label11: TLabel
+        Anchors = [akTop, akRight]
+        StyledSettings = [Family, Size, Style]
+        Position.X = 3.000000000000000000
+        Position.Y = -8.000000000000000000
+        Size.Width = 143.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.FontColor = claWhite
+        Text = 'Label2'
+        TabOrder = 0
+      end
+      object Label12: TLabel
+        StyledSettings = [Family, Size, Style]
+        Position.X = 8.000000000000000000
+        Position.Y = 16.000000000000000000
+        Size.Width = 89.000000000000000000
+        Size.Height = 43.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.FontColor = claWhite
+        Text = 'Label3'
+        TabOrder = 1
+      end
+    end
+  end
+  object Rectangle5: TRectangle
+    Anchors = [akTop]
+    Position.X = 467.000000000000000000
+    Position.Y = 71.000000000000000000
+    Size.Width = 122.000000000000000000
+    Size.Height = 59.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Cap = Round
+    Stroke.Dash = Custom
+    Stroke.Join = Round
+    Stroke.CustomDash = {020000000000803F0000803F00000000}
+    object Label9: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.X = 8.000000000000000000
+      Position.Y = -5.000000000000000000
+      Size.Width = 153.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label2'
+      TabOrder = 0
+    end
+    object Label10: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.X = 1.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      Text = 'Label3'
+      TabOrder = 1
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 32
+    Top = 8
+  end
+  object ProgressBar1: TProgressBar
+    Orientation = Horizontal
+    Position.X = 288.000000000000000000
+    Position.Y = 232.000000000000000000
+    Size.Width = 456.000000000000000000
+    Size.Height = 10.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Chart1: TChart
+    Position.X = 145.000000000000000000
+    Position.Y = 138.000000000000000000
+    Foot.Font.StyleExt = {00040000000200000004000000}
+    Legend.Title.Font.StyleExt = {00070000000000000004000000}
+    SubFoot.Font.StyleExt = {00040000000200000004000000}
+    Title.Text.Strings = (
+      'TChart')
+    Zoom.Brush.Kind = None
+    Zoom.Pen.Fill.Color = claSilver
+    TabOrder = 11
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Size.Width = 756.000000000000000000
+    Size.Height = 367.000000000000000000
+    Size.PlatformDefault = False
+    ColorPaletteIndex = 13
+  end
+end

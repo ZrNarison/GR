@@ -1,0 +1,135 @@
+unit base;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.IOUtils,  // pour TPath
+  Data.DB,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error,
+  FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Phys, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.FMXUI.Wait,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.Client, FireDAC.Comp.DataSet,
+  FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Phys.SQLiteWrapper; // SQLite driver
+
+type
+  TDataModule1 = class(TDataModule)
+    FDManager1: TFDManager;
+    FDConnection1: TFDConnection;
+    FDQuery1: TFDQuery;
+    FDQuery2: TFDQuery;
+    Info: TFDMemTable;
+    Depense: TFDMemTable;
+    User: TFDMemTable;
+    DataSource1: TDataSource;
+    DataSource2: TDataSource;
+    DataSource3: TDataSource;
+    DataSource4: TDataSource;
+    DataSource5: TDataSource; // <- Pilote SQLite
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  DataModule1: TDataModule1;
+
+implementation
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TDataModule1.DataModuleCreate(Sender: TObject);
+var
+  CheminDB: string;
+begin
+  if not Assigned(FDConnection1) then Exit;
+
+  // Chemin complet de la base de données
+  CheminDB := TPath.Combine(TPath.GetDocumentsPath, 'bdd.db');
+
+  FDConnection1.DriverName := 'SQLite';
+  FDConnection1.Params.Database := CheminDB;
+  FDConnection1.LoginPrompt := False;
+
+  // Active le pilote SQLite
+  FDConnection1.Connected := True;
+
+  // Activer les contraintes (clé étrangère)
+  FDConnection1.ExecSQL('PRAGMA foreign_keys = ON;');
+
+  // Création des tables si elles n'existent pas
+  FDConnection1.ExecSQL(
+    'CREATE TABLE IF NOT EXISTS t_categorie (' +
+    'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+    'nom_categorie TEXT NOT NULL UNIQUE);' // <-- point-virgule ajouté
+  );
+
+  FDConnection1.ExecSQL(
+    'CREATE TABLE IF NOT EXISTS t_info (' +
+    'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+    'matricule INTEGER,' +
+    'nom TEXT,' +
+    'prenom TEXT,' +
+    'datenaissance TEXT,' +
+    'lieunassance TEXT,' +
+    'fPere TEXT,' +
+    'fMere TEXT,' +
+    'cin DOUBLE UNIQUE,' +
+    'sexe TEXT,' +
+    'adresse TEXT,' +
+    'email TEXT UNIQUE,' +
+    'contact TEXT,' +
+    'inscri TEXT,' +
+    'photo BLOB);'
+  );
+
+  FDConnection1.ExecSQL(
+    'CREATE TABLE IF NOT EXISTS t_user ('+
+    'id INTEGER PRIMARY KEY AUTOINCREMENT,'+
+    'id_info INTEGER,'+
+    'pseudo TEXT UNIQUE,'+
+    'mdp TEXT,'+
+    'categorie INTEGER,'+
+    'FOREIGN KEY(categorie) REFERENCES t_categorie(id));'
+  );
+
+  FDConnection1.ExecSQL(
+    'CREATE TABLE IF NOT EXISTS t_reunion (' +
+    'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+    'p_reunion INTEGER,' +
+    'datereunion TEXT,' +
+    'remarque TEXT,' +
+    'val_ajouter INTEGER,' +
+    'FOREIGN KEY(p_reunion) REFERENCES t_info(id));'
+  );
+
+  FDConnection1.ExecSQL(
+    'CREATE TABLE IF NOT EXISTS t_depense (' +
+    'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+    'p_pret INTEGER,' +
+    'datedps TEXT,' +
+    'remarque TEXT,' +
+    'valeur DOUBLE,' +
+    'FOREIGN KEY(p_pret) REFERENCES t_info(id));'
+  );
+
+  // Insérer les rôles par défaut
+  if Assigned(FDQuery1) then
+  begin
+    FDQuery1.SQL.Text := 'INSERT OR IGNORE INTO t_categorie (nom_categorie) VALUES (:nom)';
+
+    FDQuery1.ParamByName('nom').AsString := 'ADMIN';
+    FDQuery1.ExecSQL;
+
+    FDQuery1.ParamByName('nom').AsString := 'USER';
+    FDQuery1.ExecSQL;
+  end;
+end;
+
+
+end.
+

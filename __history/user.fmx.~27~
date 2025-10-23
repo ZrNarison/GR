@@ -1,0 +1,163 @@
+object Form4: TForm4
+  Left = 0
+  Top = 0
+  Caption = 'Form4'
+  ClientHeight = 480
+  ClientWidth = 745
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Panel1: TPanel
+    Anchors = [akLeft, akTop, akBottom]
+    Locked = True
+    HitTest = False
+    Position.Y = 1.000000000000000000
+    Size.Width = 345.000000000000000000
+    Size.Height = 472.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Label2: TLabel
+      Position.X = 7.000000000000000000
+      Position.Y = 65.000000000000000000
+      Size.Width = 107.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Identification'
+      TabOrder = 9
+    end
+    object Edit1: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 0
+      KeyboardType = NumberPad
+      MaxLength = 12
+      Position.X = 115.000000000000000000
+      Position.Y = 60.000000000000000000
+      Size.Width = 203.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Button3: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 257.000000000000000000
+      Position.Y = 450.000000000000000000
+      TabOrder = 6
+      Text = 'Annuler'
+      TextSettings.FontColor = claRed
+      TextSettings.Trimming = None
+      OnClick = Button3Click
+    end
+    object Button2: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 16.000000000000000000
+      Position.Y = 450.000000000000000000
+      TabOrder = 5
+      Text = 'Enregistrer'
+      TextSettings.FontColor = claGreen
+      TextSettings.Trimming = None
+      OnClick = Button2Click
+    end
+    object Label3: TLabel
+      Position.X = 6.000000000000000000
+      Position.Y = 132.000000000000000000
+      Size.Width = 107.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Mot de passe'
+      TabOrder = 8
+    end
+    object Edit2: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      Password = True
+      MaxLength = 50
+      Position.X = 114.000000000000000000
+      Position.Y = 127.000000000000000000
+      Size.Width = 203.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit4: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 3
+      Password = True
+      MaxLength = 50
+      Position.X = 114.000000000000000000
+      Position.Y = 202.000000000000000000
+      Size.Width = 203.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label5: TLabel
+      Position.X = 6.000000000000000000
+      Position.Y = 207.000000000000000000
+      Size.Width = 107.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Confirmation'
+      TabOrder = 7
+    end
+    object Z: TCheckBox
+      Position.X = 297.000000000000000000
+      Position.Y = 127.000000000000000000
+      Size.Width = 20.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+    end
+    object CheckBox1: TCheckBox
+      StyledSettings = [Family, Size, Style]
+      Locked = True
+      Position.X = 297.000000000000000000
+      Position.Y = 203.000000000000000000
+      Size.Width = 20.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+      TextSettings.FontColor = claAliceblue
+    end
+  end
+  object ListView1: TListView
+    ItemAppearanceClassName = 'TDynamicAppearance'
+    ItemEditAppearanceClassName = 'TDynamicAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Position.X = 353.000000000000000000
+    Position.Y = 1.000000000000000000
+    Size.Width = 392.000000000000000000
+    Size.Height = 471.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
+      item
+        AppearanceObjectName = 'Text1'
+        AppearanceClassName = 'TTextObjectAppearance'
+      end>
+    ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
+      item
+        AppearanceObjectName = 'Text1'
+        AppearanceClassName = 'TTextObjectAppearance'
+      end>
+  end
+  object Label1: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 272.000000000000000000
+    Size.Width = 105.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Cat'#233'gorie'
+    TabOrder = 2
+  end
+  object ComboBox1: TComboBox
+    Position.X = 114.000000000000000000
+    Position.Y = 267.000000000000000000
+    Size.Width = 203.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+  end
+end

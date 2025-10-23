@@ -1,0 +1,357 @@
+object Form3: TForm3
+  Left = 0
+  Top = 0
+  Caption = 'Form3'
+  ClientHeight = 501
+  ClientWidth = 929
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Panel1: TPanel
+    Anchors = [akLeft, akTop, akBottom]
+    Size.Width = 345.000000000000000000
+    Size.Height = 501.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Label1: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 46.000000000000000000
+      Text = 'N'#176' Matricule'
+      TabOrder = 0
+    end
+    object ComboEdit1: TComboEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      ItemHeight = 19.000000000000000000
+      ItemIndex = -1
+      Position.X = 107.000000000000000000
+      Position.Y = 41.000000000000000000
+      Size.Width = 110.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = ComboEdit1Change
+    end
+    object Label2: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 87.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Nom'
+      TabOrder = 8
+    end
+    object Button3: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 257.000000000000000000
+      Position.Y = 453.000000000000000000
+      TabOrder = 10
+      Text = 'Annuler'
+      TextSettings.FontColor = claRed
+      TextSettings.Trimming = None
+      OnClick = Button3Click
+    end
+    object Button2: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 16.000000000000000000
+      Position.Y = 453.000000000000000000
+      TabOrder = 9
+      Text = 'Enregistrer'
+      TextSettings.FontColor = claGreen
+      TextSettings.Trimming = None
+      OnClick = Button2Click
+    end
+    object Label3: TLabel
+      Position.X = 7.000000000000000000
+      Position.Y = 130.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Pr'#233'nom'
+      TabOrder = 7
+    end
+    object Label4: TLabel
+      Position.X = 7.000000000000000000
+      Position.Y = 176.000000000000000000
+      Size.Width = 106.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Date de naissance'
+      TabOrder = 6
+    end
+    object Label7: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 323.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'CIN'
+      TabOrder = 3
+      OnApplyStyleLookup = ComboEdit1Change
+    end
+    object Label6: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 274.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Adresse'
+      TabOrder = 4
+      OnApplyStyleLookup = ComboEdit1Change
+    end
+    object Label8: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 369.000000000000000000
+      Size.Width = 88.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'R'#233'marque'
+      TabOrder = 2
+      OnApplyStyleLookup = ComboEdit1Change
+    end
+    object Label11: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Text = 'Date du r'#233'union'
+      TabOrder = 11
+    end
+    object ComboBox2: TComboBox
+      Items.Strings = (
+        'ABSENT'
+        'EN RETARD'
+        'PRESENT')
+      Position.X = 105.000000000000000000
+      Position.Y = 364.000000000000000000
+      Size.Width = 112.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 12
+      OnChange = ComboBox2Change
+    end
+    object ComboEdit2: TComboEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 13
+      ItemHeight = 19.000000000000000000
+      ItemIndex = -1
+      Position.X = 107.000000000000000000
+      Position.Y = 3.000000000000000000
+      Size.Width = 110.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = ComboEdit2Change
+      OnExit = ComboEdit2Exit
+    end
+    object Label5: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 224.000000000000000000
+      Size.Width = 146.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Lieu de naissance'
+      TabOrder = 5
+    end
+    object Edit1: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 20
+      Position.X = 107.000000000000000000
+      Position.Y = 82.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit2: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 19
+      Position.X = 107.000000000000000000
+      Position.Y = 125.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit3: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 17
+      Position.X = 107.000000000000000000
+      Position.Y = 171.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit4: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 18
+      Position.X = 107.000000000000000000
+      Position.Y = 219.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit5: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 15
+      Position.X = 107.000000000000000000
+      Position.Y = 269.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit6: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 16
+      Position.X = 107.000000000000000000
+      Position.Y = 318.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit7: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 14
+      Position.X = 107.000000000000000000
+      Position.Y = 412.000000000000000000
+      Size.Width = 110.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Image1: TImage
+      MultiResBitmap = <
+        item
+        end>
+      Position.X = 225.000000000000000000
+      Position.Y = 3.000000000000000000
+      Size.Width = 112.000000000000000000
+      Size.Height = 71.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Button1: TButton
+      Position.X = 134.000000000000000000
+      Position.Y = 479.000000000000000000
+      TabOrder = 22
+      Text = 'R'#233'union'
+      TextSettings.Trimming = None
+      OnClick = Button1Click
+    end
+  end
+  object Label9: TLabel
+    Position.X = 6.000000000000000000
+    Position.Y = 417.000000000000000000
+    Size.Width = 90.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Val Ajouter'
+    TabOrder = 2
+    OnApplyStyleLookup = ComboEdit1Change
+  end
+  object GridPresence: TStringGrid
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 353.000000000000000000
+    Position.Y = 40.000000000000000000
+    Size.Width = 576.000000000000000000
+    Size.Height = 441.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Viewport.Width = 572.000000000000000000
+    Viewport.Height = 416.000000000000000000
+  end
+  object DateEdit1: TDateEdit
+    Date = 45935.000000000000000000
+    Position.X = 400.000000000000000000
+    Position.Y = 10.000000000000000000
+    TabOrder = 5
+  end
+  object DateEdit2: TDateEdit
+    Date = 45935.000000000000000000
+    Anchors = [akTop]
+    Position.X = 703.000000000000000000
+    Position.Y = 10.000000000000000000
+    TabOrder = 4
+  end
+  object Label10: TLabel
+    Anchors = [akRight, akBottom]
+    Position.X = 541.000000000000000000
+    Position.Y = 485.000000000000000000
+    Size.Width = 41.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Absent'
+    TabOrder = 9
+  end
+  object Label12: TLabel
+    Anchors = [akRight, akBottom]
+    Position.X = 669.000000000000000000
+    Position.Y = 484.000000000000000000
+    Size.Width = 57.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'En retard'
+    TabOrder = 7
+  end
+  object Label13: TLabel
+    Anchors = [akRight, akBottom]
+    Position.X = 823.000000000000000000
+    Position.Y = 484.000000000000000000
+    Size.Width = 41.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Pr'#233'sent'
+    TabOrder = 6
+  end
+  object Rectangle1: TRectangle
+    Anchors = [akRight, akBottom]
+    Position.X = 586.000000000000000000
+    Position.Y = 489.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 10.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Rectangle2: TRectangle
+    Anchors = [akRight, akBottom]
+    Position.X = 731.000000000000000000
+    Position.Y = 489.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 10.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Rectangle3: TRectangle
+    Anchors = [akRight, akBottom]
+    Position.X = 871.000000000000000000
+    Position.Y = 489.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 10.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Label14: TLabel
+    Anchors = [akRight, akBottom]
+    Position.X = 353.000000000000000000
+    Position.Y = 482.000000000000000000
+    Size.Width = 104.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Avant Inscription'
+    TabOrder = 8
+  end
+  object Rectangle4: TRectangle
+    Anchors = [akRight, akBottom]
+    Position.X = 451.000000000000000000
+    Position.Y = 489.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 10.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Button4: TButton
+    Position.X = 871.000000000000000000
+    Position.Y = 10.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 15
+    Text = 'X'
+    TextSettings.Trimming = None
+    OnClick = Button4Click
+  end
+end

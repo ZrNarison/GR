@@ -1,0 +1,143 @@
+﻿unit reup;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Vcl.Controls, Vcl.Forms, Vcl.StdCtrls,
+  Vcl.Dialogs, Winapi.Windows, FMX.StdCtrls, FMX.Types, FMX.Controls,
+  FMX.Controls.Presentation, FMX.Edit;
+
+type
+  TForm9 = class(TForm)
+    Edit1: TEdit;    // CIN
+    Edit2: TEdit;    // Mot de passe
+    Edit4: TEdit;    // Confirmation mot de passe
+    Button2: TButton;
+    Button3: TButton;
+    procedure Button2Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  Form9: TForm9;
+  Tentatives: Integer = 0;
+
+implementation
+
+{$R *.dfm}
+
+uses base, login, Reunion;
+
+procedure TForm9.FormCreate(Sender: TObject);
+begin
+  Position := poScreenCenter;  // Centre le formulaire
+end;
+
+procedure TForm9.Button2Click(Sender: TObject);
+begin
+  if (Trim(Edit1.Text) = '') or (Trim(Edit2.Text) = '') or (Trim(Edit4.Text) = '') then
+  begin
+    ShowMessage('Veuillez remplir tous les champs.');
+    Exit;
+  end;
+
+  // Vérifier si le CIN existe dans t_membre
+  with DataModule1.FDQuery3 do
+  begin
+    Close;
+    SQL.Text := 'SELECT cin FROM t_membre WHERE cin = :cin';
+    ParamByName('cin').AsString := Edit1.Text;
+    Open;
+
+    if Eof then
+    begin
+      ShowMessage('Pseudo d''identification non trouvé.');
+      Inc(Tentatives);
+      if Tentatives >= 5 then
+      begin
+        ShowMessage('Trop de tentatives échouées. L''application va se fermer.');
+        Application.Terminate;
+      end;
+      Exit;
+    end;
+    Close;
+  end;
+
+  // Vérifier mot de passe et confirmation
+  if Edit2.Text = Edit4.Text then
+  begin
+    with DataModule1.FDQuery3 do
+    begin
+      Close;
+      SQL.Text := 'SELECT cin FROM t_utilisateur WHERE cin = :cin';
+      ParamByName('cin').AsString := Edit1.Text;
+      Open;
+
+      if not Eof then
+      begin
+        Close;
+        SQL.Text := 'UPDATE t_utilisateur SET mdp = :mdp WHERE cin = :cin';
+        ParamByName('mdp').AsString := Edit2.Text;
+        ParamByName('cin').AsString := Edit1.Text;
+        ExecSQL;
+
+        ShowMessage('Mot de passe mis à jour avec succès !');
+        Form1.Show;
+        Close;
+      end
+      else
+      begin
+        ShowMessage('Cet utilisateur n''existe pas encore. Contactez l''administrateur.');
+        Inc(Tentatives);
+        if Tentatives >= 5 then
+          Application.Terminate;
+        Exit;
+      end;
+    end;
+  end
+  else
+  begin
+    ShowMessage('Code de confirmation incorrect, merci de réessayer !');
+    Edit2.Text := '';
+    Edit4.Text := '';
+    Edit2.SetFocus;
+
+    Inc(Tentatives);
+    if Tentatives >= 5 then
+      Application.Terminate;
+  end;
+end;
+
+procedure TForm9.Edit1Change(Sender: TObject);
+var
+  CIN: string;
+begin
+  CIN := Trim(Edit1.Text);
+
+  if Length(CIN) = 12 then
+  begin
+    if CharInSet(CIN[6], ['1','2']) then
+      Edit1.Font.Color := clGreen
+    else
+    begin
+      Edit1.Font.Color := clRed;
+      ShowMessage('Le 6ème chiffre du CIN doit être 1 ou 2.');
+      Edit1.SetFocus;
+    end;
+  end
+  else if Length(CIN) > 12 then
+  begin
+    Edit1.Font.Color := clRed;
+    ShowMessage('Le numéro CIN doit contenir exactement 12 chiffres.');
+    Edit1.Text := Copy(CIN,1,12);
+    Edit1.SelStart := Length(Edit1.Text);
+  end;
+end;
+
+end.
+

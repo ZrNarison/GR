@@ -1,0 +1,35 @@
+unit Splash;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Controls.Presentation;
+
+type
+  TTFormSplash = class(TForm)
+    ProgressBar1: TProgressBar;
+    LabelStatus: TLabel;
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+    procedure UpdateProgress(Value: Integer; const Msg: string = '');
+  end;
+
+var
+  TFormSplash: TTFormSplash;
+
+implementation
+
+{$R *.fmx}
+
+procedure TTFormSplash.UpdateProgress(Value: Integer; const Msg: string);
+begin
+  ProgressBar1.Value := Value;
+  if Msg <> '' then
+    LabelStatus.Text := Msg;
+  Application.ProcessMessages; // permet de rafraîchir la barre
+end;
+end.

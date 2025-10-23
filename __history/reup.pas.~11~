@@ -1,0 +1,136 @@
+﻿unit reup;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Controls.Presentation, FMX.Edit;
+
+type
+  TForm9 = class(TForm)
+    Edit2: TEdit;
+    Edit1: TEdit;
+    CheckBox1: TCheckBox;
+    Edit4: TEdit;
+    CheckBox2: TCheckBox;
+    Label5: TLabel;
+    Label3: TLabel;
+    Label2: TLabel;
+    Button2: TButton;
+    Button3: TButton;
+    procedure Button2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  Form9: TForm9;
+  Tentatives: Integer = 0;
+
+implementation
+
+{$R *.fmx}
+
+uses base, login, Reunion;
+
+procedure TForm9.Button2Click(Sender: TObject);
+begin
+  // Vérifier que les champs ne sont pas vides
+  if (Trim(Edit1.Text) = '') or (Trim(Edit2.Text) = '') or (Trim(Edit4.Text) = '') then
+  begin
+    ShowMessage('Veuillez remplir tous les champs.');
+    Exit;
+  end;
+
+  // Vérifier si le CIN existe dans t_membre
+  with DataModule1.FDQuery3 do
+  begin
+    Close;
+    SQL.Text := 'SELECT cin FROM t_membre WHERE cin = :cin';
+    ParamByName('cin').AsString := Edit1.Text;
+    Open;
+
+    if Eof then
+    begin
+      ShowMessage('Pseudo d''identification non trouvé.');
+      Inc(Tentatives);
+      if Tentatives >= 5 then
+      begin
+        ShowMessage('Trop de tentatives échouées. L''application va se fermer. Merci de conter votre Président');
+        Application.Terminate;
+      end;
+      Exit;
+    end;
+    Close;
+  end;
+
+  // Vérifier mot de passe et confirmation
+  if Edit2.Text = Edit4.Text then
+  begin
+    // Vérifier si le CIN existe déjà dans t_utilisateur
+    with DataModule1.FDQuery3 do
+    begin
+      Close;
+      SQL.Text := 'SELECT cin FROM t_utilisateur WHERE cin = :cin';
+      ParamByName('cin').AsString := Edit1.Text;
+      Open;
+
+      if not Eof then
+      begin
+        // --- Mise à jour du mot de passe ---
+        Close;
+        SQL.Text := 'UPDATE t_utilisateur SET mdp = :mdp WHERE cin = :cin';
+        ParamByName('mdp').AsString := Edit2.Text;
+        ParamByName('cin').AsString := Edit1.Text;
+        ExecSQL;
+
+        ShowMessage('Mot de passe mis à jour avec succès !');
+        Form1.Show;
+        Close;
+      end
+      else
+      begin
+        // --- CIN non trouvé dans t_utilisateur → ne pas créer ---
+        ShowMessage('Cet utilisateur n''existe pas encore dans la base. Contactez l''administrateur.');
+        Inc(Tentatives);
+        if Tentatives >= 5 then
+        begin
+          ShowMessage('Trop de tentatives échouées. L''application va se fermer. Merci de conter votre Président');
+          Application.Terminate;
+        end;
+        Exit;
+      end;
+    end;
+  end
+  else
+  begin
+    // --- Mauvaise confirmation de mot de passe ---
+    ShowMessage('Code de confirmation incorrect, merci de réessayer !');
+    Edit2.Text := '';
+    Edit4.Text := '';
+    Edit2.SetFocus;
+
+    Inc(Tentatives);
+    if Tentatives >= 5 then
+    begin
+      ShowMessage('Trop de tentatives échouées. L''application va se fermer. Merci de conter votre Président');
+      Application.Terminate;
+    end;
+  end;
+end;
+procedure TForm9.FormCreate(Sender: TObject);
+begin
+Position := TFormPosition.ScreenCenter;
+end;
+
+procedure TForm9.FormShow(Sender: TObject);
+begin
+Position := TFormPosition.ScreenCenter;
+end;
+
+end.

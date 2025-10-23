@@ -1,0 +1,348 @@
+﻿unit login;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Edit,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts, FMX.Ani,
+  FMXTee.Engine, FMXTee.Procs, FMXTee.Chart, FMXTee.Series,
+  System.IOUtils, System.JSON, Data.DB, FireDAC.Comp.Client, System.DateUtils,
+  System.NetEncoding, System.Zip, FMX.ListBox, System.Character, FMX.DialogService;
+
+type
+  TForm5 = class(TForm)
+    Label1: TLabel;
+    Edit1: TEdit;
+    Label2: TLabel;
+    Edit2: TEdit;
+    Label3: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Label4: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3DblClick(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+  private
+    { Déclarations privées }
+    procedure InitialiserBDD;
+    var
+      SerieReunion, SerieSocial, SerieAbsents: TLineSeries;
+      ConfigPath, LogPath,CheminDB: string;
+
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  Form5: TForm5;
+  Tentatives: Integer = 0;
+
+implementation
+
+{$R *.fmx}
+
+uses  Reunion, base, reup;
+
+
+procedure TForm5.InitialiserBDD;
+var
+  CheminDB,DossierData: string;
+begin
+  if not Assigned(DataModule1) then
+    raise Exception.Create('DataModule1 non initialisé !');
+//       --------PREPARATION DE LA BASE DE DONNEES-----------------/
+//    Chémin de la BDD dont il créer s'il n'éxiste pas
+    {$IFDEF MSWINDOWS}
+  // Sous Windows : dans le dossier la même que le Path
+    CheminDB := TPath.Combine(ExtractFilePath(ParamStr(0)), 'bdd.db');
+    {$ENDIF}
+
+    {$IFDEF MACOS}
+    // Sous macOS : même chose (Documents)
+    CheminDB := TPath.Combine(TPath.GetDocumentsPath, 'bdd.db');
+    {$ENDIF}
+
+    {$IFDEF ANDROID}
+    // Sous Android : dans le dossier local de l'application
+    CheminDB := TPath.Combine(TPath.GetDocumentsPath, 'bdd.db');
+    {$ENDIF}
+
+    // Vérifier et créer le dossier si nécessaire
+ DossierData := TPath.Combine(ExtractFilePath(ParamStr(0)), 'data');
+ if not TDirectory.Exists(DossierData) then
+     TDirectory.CreateDirectory(DossierData);
+
+      // Rendre le dossier caché
+//  SetFileAttributes(PWideChar(DossierData), FILE_ATTRIBUTE_HIDDEN);
+
+  CheminDB := TPath.Combine(DossierData, 'bdd.db');
+
+//    Supprimer la BDD s'il existe
+//    if TFile.Exists(CheminDB) then
+//    TFile.Delete(CheminDB);
+    with DataModule1.FDConnection1 do
+        begin
+          DriverName := 'SQLite';
+          Params.Database := CheminDB;
+          LoginPrompt := False;
+          Connected := True;   // Connexion ouverte avant ExecSQL
+        end;
+  with DataModule1.FDQuery1 do
+  begin
+    Connection := DataModule1.FDConnection1;
+//    Table des membres
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_membre (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'matricule INTEGER ,' +
+      'nom TEXT NOT NULL,' +
+      'prenom TEXT NOT NULL,' +
+      'date_naissance TEXT,' +
+      'lieu_naissance TEXT,' +
+      'filiation_pere TEXT,' +
+      'filiation_mere TEXT,' +
+      'sexe TEXT,' +
+      'cin TEXT UNIQUE,' +
+      'adresse TEXT,' +
+      'email TEXT,' +
+      'telephone TEXT,' +
+      'image TEXT,' +
+      'date_inscription DATE)'
+    );
+
+//    ExecSQL('DROP TABLE IF EXISTS t_reunion'); //Effacer le table t_reunino s'il existe
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_reunion (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'date_reunion DATE)'
+    );
+
+//    Table presence
+//    ExecSQL('DROP TABLE IF EXISTS t_presence');  //Effacer le table t_presence  s'il existe
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_presence (' +  //Créer s'il n'existe pas
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'idMembre INTEGER,' +
+      'idReunion INTEGER,' +
+      'remarque TEXT,' +
+      'valeur FLOAT,' +
+      'FOREIGN KEY(idMembre) REFERENCES t_membre(id),' +
+      'FOREIGN KEY(idReunion) REFERENCES t_reunion(id))'
+    );
+    //    Table social
+//    ExecSQL('DROP TABLE IF EXISTS t_social');  //Effacer le table t_presence  s'il existe
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_social (' +  //Créer s'il n'existe pas
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'idMembre INTEGER,' +
+      'idReunion INTEGER,' +
+      'remarque TEXT,' +
+      'valeur FLOAT,' +
+      'FOREIGN KEY(idMembre) REFERENCES t_membre(id),' +
+      'FOREIGN KEY(idReunion) REFERENCES t_reunion(id))'
+    );
+//    Table Depense
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_depense (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'date_depense DATE,' +
+      'motif TEXT NOT NULL,' +
+      'montant REAL NOT NULL)'
+    );
+
+//    Table des punitions
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_punition (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'matricule INTEGER,' +
+      'date_punition DATE,' +
+      'motif TEXT,' +
+      'montant REAL DEFAULT 0,' +
+      'FOREIGN KEY(matricule) REFERENCES t_membre(id))'
+    );
+
+    // Table des prêts
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_pret (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'matricule INTEGER,' +
+      'date_pret DATE,' +
+      'somme REAL NOT NULL,' +
+      'interet REAL DEFAULT 0,' +
+      'FOREIGN KEY(matricule) REFERENCES t_membre(id))'
+    );
+
+    // Table des utilisateurs
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_utilisateur (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'cin TEXT UNIQUE,' +
+      'mdp TEXT UNIQUE,' +
+      'categorie TEXT NOT NULL)'
+    );
+
+    // Table des Setting
+//    ExecSQL('DROP TABLE IF EXISTS t_groupe');
+    ExecSQL(
+      'CREATE TABLE IF NOT EXISTS t_groupe (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'nomSetting TEXT,' +
+      'presidentSetting TEXT,' +
+      'adresseSetting TEXT,' +
+      'photoSetting TEXT)'
+    );
+  end;
+  with DataModule1.FDConnection1 do
+    begin
+      Connected := True;  // <-- connexion ouverte après ExecSQL ! ❌
+    end;
+
+end;
+
+procedure TForm5.Button1Click(Sender: TObject);
+var
+  CIN, Code: string;
+begin
+  CIN := Edit1.Text;   // Edit1 = CIN
+  Code := Edit2.Text;  // Edit2 = mot de passe/code
+
+  if (CIN = '') then
+  begin
+    ShowMessage('Veuillez saisir votre pseudo.');
+    Exit;
+  end;
+
+  if (Code = '') then
+  begin
+    ShowMessage('Veuillez saisir votre code.');
+    Exit;
+  end;
+
+  // Connexion administrateur temporaire
+  if (CIN = 'R9 Mahaleo') and (Code = 'Z') then
+  begin
+    Form1.Show;
+    Form5.Hide;
+    Exit;
+  end;
+
+  // Vérifier dans la base t_utilisateur
+  with DataModule1.FDQuery1 do
+  begin
+    Close;
+    SQL.Text := 'SELECT cin, mdp FROM t_utilisateur WHERE cin = :cin AND mdp = :code';
+    ParamByName('cin').AsString := CIN;
+    ParamByName('code').AsString := Code;
+    Open;
+
+    if Eof then
+    begin
+      // Échec de connexion
+      Inc(Tentatives); // incrémente le compteur
+      ShowMessage('Login ou code incorrect !');
+      Edit1.Text:='';
+      Edit2.Text:='';
+      if Tentatives >= 4 then
+      begin
+        ShowMessage('Trop de tentatives échouées. L''application va se fermer.');
+        Application.Terminate;
+      end;
+
+      Exit;
+    end
+    else
+    begin
+      // Connexion réussie
+      Form1.Show;
+      Form5.Hide;
+    end;
+
+    Close;
+  end;
+end;
+
+
+procedure TForm5.Button2Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TForm5.Button3DblClick(Sender: TObject);
+begin
+Form9.Show;
+Form5.Hide;
+end;
+
+procedure TForm5.Edit1Change(Sender: TObject);
+var
+  CIN: string;
+begin
+  CIN := Trim(Edit1.Text);
+  if Length(CIN) = 12 then
+  begin
+    if CharInSet(CIN[6], ['1','2']) then
+    begin
+      Edit1.TextSettings.FontColor := TAlphaColorRec.Green;
+      Edit1.Hint := 'CIN valide';
+    end
+    else
+    begin
+      Edit1.TextSettings.FontColor := TAlphaColorRec.Red;
+      TDialogService.ShowMessage('Pseudo invalide, merci de réessayer.');
+      Edit1.Text:='';
+      Edit1.SetFocus;
+    end;
+  end
+  else if Length(CIN) > 12 then
+  begin
+    Edit1.TextSettings.FontColor := TAlphaColorRec.Red;
+    TDialogService.ShowMessage('Le pseudo doit contenir exactement 12 chiffres.');
+    Edit1.Text := Copy(CIN, 1, 12);
+    Edit1.SelStart := Length(Edit1.Text);
+  end;
+end;
+
+procedure TForm5.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  if MessageDlg('Voulez-vous vous déconnecter ?',
+                TMsgDlgType.mtConfirmation,
+                [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = mrYes then
+  begin
+    CanClose := True;
+
+    {$IFDEF MSWINDOWS}  // seulement pour Windows
+    Application.Terminate;
+    {$ENDIF}
+
+    {$IFDEF MACOS}      // pour macOS
+    Application.Terminate;
+    {$ENDIF}
+
+    // Sur Android/iOS, on laisse simplement CanClose = True pour fermer la Form
+  end
+  else
+    CanClose := False;
+end;
+
+
+procedure TForm5.FormCreate(Sender: TObject);
+begin
+    Position := TFormPosition.ScreenCenter;
+  label1.text:='Identification';
+  Label2.Text:='Mot de passe'
+end;
+
+procedure TForm5.FormShow(Sender: TObject);
+begin
+    Position := TFormPosition.ScreenCenter;
+  InitialiserBDD;
+  Label4.Text := 'Copyright ' + Chr($00A9) + ' 2025 By Z-Info';
+end;
+
+end.

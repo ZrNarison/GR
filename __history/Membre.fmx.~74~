@@ -1,0 +1,283 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'GR'
+  ClientHeight = 527
+  ClientWidth = 879
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Z: TPanel
+    Anchors = [akLeft, akTop, akBottom]
+    Position.X = 3.000000000000000000
+    Position.Y = 5.000000000000000000
+    Size.Width = 358.000000000000000000
+    Size.Height = 519.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Label1: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Text = 'Nom'
+      TabOrder = 11
+    end
+    object Edit1: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      StyleLookup = 'editstyle'
+      TabOrder = 0
+      Position.X = 116.000000000000000000
+      Position.Y = 3.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label2: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 44.000000000000000000
+      Text = 'Pr'#233'nom'
+      TabOrder = 12
+    end
+    object Edit2: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      Position.X = 116.000000000000000000
+      Position.Y = 39.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit3: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 3
+      Position.X = 116.000000000000000000
+      Position.Y = 111.000000000000000000
+      Size.Width = 133.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label3: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 116.000000000000000000
+      Text = 'Lieu de naissance'
+      TabOrder = 13
+    end
+    object Label4: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 80.000000000000000000
+      Text = 'Date de naissance'
+      TabOrder = 14
+    end
+    object Edit6: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 4
+      Position.X = 116.000000000000000000
+      Position.Y = 151.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label6: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 228.000000000000000000
+      Text = 'C.I.N'
+      TabOrder = 15
+    end
+    object Edit7: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 5
+      Position.X = 116.000000000000000000
+      Position.Y = 187.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit8: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 6
+      KeyboardType = NumberPad
+      MaxLength = 12
+      Position.X = 116.000000000000000000
+      Position.Y = 223.000000000000000000
+      Size.Width = 133.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label7: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 156.000000000000000000
+      Text = 'Filliation Pere'
+      TabOrder = 18
+    end
+    object Label8: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 192.000000000000000000
+      Text = 'Filliation Mere'
+      TabOrder = 19
+    end
+    object Label9: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 268.000000000000000000
+      Text = 'Sexe'
+      TabOrder = 20
+    end
+    object ComboBox1: TComboBox
+      Items.Strings = (
+        'Homme'
+        'Femme')
+      Position.X = 116.000000000000000000
+      Position.Y = 263.000000000000000000
+      Size.Width = 103.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 7
+    end
+    object Edit9: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 8
+      Position.X = 116.000000000000000000
+      Position.Y = 308.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit10: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 9
+      KeyboardType = EmailAddress
+      MaxLength = 50
+      Position.X = 116.000000000000000000
+      Position.Y = 344.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label10: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 385.000000000000000000
+      Text = 'T'#233'l'#233'phone'
+      TabOrder = 16
+    end
+    object Label11: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 349.000000000000000000
+      Text = 'Email'
+      TabOrder = 24
+    end
+    object Label12: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 313.000000000000000000
+      Text = 'Adresse'
+      TabOrder = 17
+    end
+    object Edit11: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 10
+      KeyboardType = NumberPad
+      MaxLength = 10
+      Position.X = 116.000000000000000000
+      Position.Y = 380.000000000000000000
+      Size.Width = 220.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object DateEdit1: TDateEdit
+      Date = 45929.000000000000000000
+      Position.X = 116.000000000000000000
+      Position.Y = 75.000000000000000000
+      TabOrder = 2
+    end
+    object Button1: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 432.000000000000000000
+      Size.Width = 328.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 21
+      Text = 'Cliquer pour ins'#233'rer photo'
+      TextSettings.Trimming = None
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 16.000000000000000000
+      Position.Y = 480.000000000000000000
+      TabOrder = 22
+      Text = 'Enregistrer'
+      TextSettings.FontColor = claGreen
+      TextSettings.Trimming = None
+      OnClick = Button2Click
+    end
+    object Button3: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 258.000000000000000000
+      Position.Y = 480.000000000000000000
+      TabOrder = 23
+      Text = 'Annuler'
+      TextSettings.FontColor = claRed
+      TextSettings.Trimming = None
+      OnClick = Button3Click
+    end
+    object Image1: TImage
+      MultiResBitmap = <
+        item
+        end>
+      Position.X = 255.000000000000000000
+      Position.Y = 64.000000000000000000
+      Size.Width = 94.000000000000000000
+      Size.Height = 84.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+  object Label5: TLabel
+    Position.X = 369.000000000000000000
+    Position.Y = 13.000000000000000000
+    Text = 'Recherche'
+    TabOrder = 1
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 59
+    Top = 13
+  end
+  object Button4: TButton
+    Anchors = [akTop, akRight]
+    StyledSettings = [Family, Size, Style]
+    Position.X = 807.000000000000000000
+    Position.Y = 8.000000000000000000
+    Size.Width = 34.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = 'X'
+    TextSettings.FontColor = claCrimson
+    TextSettings.Trimming = None
+    OnClick = Button4Click
+  end
+  object StringGrid1: TStringGrid
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 367.000000000000000000
+    Position.Y = 38.000000000000000000
+    Size.Width = 512.000000000000000000
+    Size.Height = 489.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    OnCellClick = StringGrid1CellClick
+    Viewport.Width = 508.000000000000000000
+    Viewport.Height = 464.000000000000000000
+  end
+  object Edit4: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 8
+    Position.X = 448.000000000000000000
+    Position.Y = 8.000000000000000000
+    Size.Width = 351.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    OnChange = Edit4Change
+  end
+end

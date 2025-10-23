@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/09/23 17:14:01.000.372,=C:\Users\Acer\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/09/29 16:04:39.000.756,=C:\Users\Acer\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/09/29 16:05:24.000.416,=C:\Users\Acer\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/09/29 16:06:41.000.696,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Reunion.fmx=C:\Users\Acer\Documents\Embarcadero\Studio\Projets\Unit1.fmx</Transaction>
+    <Transaction>2025/09/29 16:06:41.000.696,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Reunion.pas=C:\Users\Acer\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/09/29 16:07:05.000.223,D:\DOCUMENTS\EXE&amp;DELPHI\J P\GR.dproj=C:\Users\Acer\Documents\Embarcadero\Studio\Projets\Project1.dproj</Transaction>
+    <Transaction>2025/09/29 17:47:20.000.592,=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit1.pas</Transaction>
+    <Transaction>2025/09/29 17:47:30.000.993,=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit1.pas</Transaction>
+    <Transaction>2025/09/29 17:48:03.000.840,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit1.pas=D:\DOCUMENTS\EXE&amp;DELPHI\J P\base.pas</Transaction>
+    <Transaction>2025/09/29 17:48:03.000.840,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit1.dfm=D:\DOCUMENTS\EXE&amp;DELPHI\J P\base.dfm</Transaction>
+    <Transaction>2025/09/29 21:33:48.000.438,=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit2.pas</Transaction>
+    <Transaction>2025/09/29 21:34:02.000.670,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit2.fmx=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Membre.fmx</Transaction>
+    <Transaction>2025/09/29 21:34:02.000.670,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit2.pas=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Membre.pas</Transaction>
+    <Transaction>2025/09/30 08:06:18.000.979,=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit3.pas</Transaction>
+    <Transaction>2025/09/30 08:06:31.000.786,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Fiv.fmx=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit3.fmx</Transaction>
+    <Transaction>2025/09/30 08:06:31.000.786,D:\DOCUMENTS\EXE&amp;DELPHI\J P\Fiv.pas=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit3.pas</Transaction>
+    <Transaction>2025/10/01 18:21:23.000.193,=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit4.pas</Transaction>
+    <Transaction>2025/10/01 18:21:31.000.976,D:\DOCUMENTS\EXE&amp;DELPHI\J P\user.fmx=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit4.fmx</Transaction>
+    <Transaction>2025/10/01 18:21:31.000.976,D:\DOCUMENTS\EXE&amp;DELPHI\J P\user.pas=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit4.pas</Transaction>
+    <Transaction>2025/10/01 18:47:32.000.922,=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit5.pas</Transaction>
+    <Transaction>2025/10/01 18:47:38.000.729,D:\DOCUMENTS\EXE&amp;DELPHI\J P\login.fmx=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit5.fmx</Transaction>
+    <Transaction>2025/10/01 18:47:38.000.729,D:\DOCUMENTS\EXE&amp;DELPHI\J P\login.pas=D:\DOCUMENTS\EXE&amp;DELPHI\J P\Unit5.pas</Transaction>
+    <Transaction>2025/10/08 06:15:58.000.255,=D:\DOCUMENTS\DELPHI\J P\Unit6.pas</Transaction>
+    <Transaction>2025/10/08 06:16:11.000.618,D:\DOCUMENTS\DELPHI\J P\Rfiv.fmx=D:\DOCUMENTS\DELPHI\J P\Unit6.fmx</Transaction>
+    <Transaction>2025/10/08 06:16:11.000.618,D:\DOCUMENTS\DELPHI\J P\Rfiv.pas=D:\DOCUMENTS\DELPHI\J P\Unit6.pas</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile Android64="" Android=""/>
+	</ActiveMobileDevice>
+</BorlandProject>
